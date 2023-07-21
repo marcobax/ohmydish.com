@@ -1,0 +1,1 @@
+<?php require_once(ROOT . 'view/blog/index.php');

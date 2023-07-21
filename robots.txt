@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /addineyeV2.html
+Disallow: /DARTIframe.html
+Disallow: /eyeblaster/*
+Disallow: /doubleclick
+Disallow: /admin
+Disallow: /admin/*
+Sitemap: https://ohmydish.com/sitemap.xml

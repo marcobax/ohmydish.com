@@ -1,0 +1,14 @@
+RewriteEngine on
+RewriteCond %{REQUEST_URI} !\.(?:css|js|jpe?g|gif|png|webp)$ [NC]
+
+RewriteRule ^sitemap\.xml$ index.php?p=$1
+RewriteRule ^sitemap-main\.xml$ index.php?p=$1
+RewriteRule ^sitemap-blog\.xml$ index.php?p=$1
+RewriteRule ^sitemap-page\.xml$ index.php?p=$1
+RewriteRule ^sitemap-recipe\.xml$ index.php?p=$1
+RewriteRule ^sitemap-category\.xml$ index.php?p=$1
+RewriteRule ^sitemap-tag\.xml$ index.php?p=$1
+RewriteRule ^sitemap-question\.xml$ index.php?p=$1
+RewriteRule ^sitemap-collection\.xml$ index.php?p=$1
+
+RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ index.php?p=$1

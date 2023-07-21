@@ -1,0 +1,167 @@
+#AuthType Basic
+#AuthName "My Protected Folder"
+#AuthUserFile /sites/ohmydish.com/subdomains/test/public/.htpasswd
+#require valid-user
+
+<IfModule mod_headers.c>
+Header set Strict-Transport-Security "max-age=10886400; includeSubDomains; preload"
+</IfModule>
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+RewriteRule ^sitemap\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-main\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-blog\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-blog-comments\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-forum\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-index\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-page\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-recipe\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-recipe-comments\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-category\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-tag\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-question\.xml$ public/index.php?p=$1
+RewriteRule ^sitemap-collection\.xml$ public/index.php?p=$1
+
+RewriteRule ^recipe_cuisine/(.*)$ https://%{HTTP_HOST}/kitchen/$1 [R=301]
+RewriteRule ^recipe_difficulty/(.*)$ https://%{HTTP_HOST}/recipe-index [R=301]
+RewriteRule ^(.*)/feed$ https://%{HTTP_HOST}/feed [R=301]
+RewriteRule ^feeds$ https://%{HTTP_HOST}/feed [R=301]
+RewriteRule ^beverages$ https://%{HTTP_HOST}/course/beverages [R=301]
+RewriteRule ^breakfast$ https://%{HTTP_HOST}/course/breakfast [R=301]
+RewriteRule ^desserts$ https://%{HTTP_HOST}/course/desserts [R=301]
+RewriteRule ^lunch$ https://%{HTTP_HOST}/course/lunch [R=301]
+RewriteRule ^main-course$ https://%{HTTP_HOST}/course/main-course [R=301]
+RewriteRule ^pie-and-cake$ https://%{HTTP_HOST}/course/pie-and-cake [R=301]
+RewriteRule ^salads$ https://%{HTTP_HOST}/course/salads [R=301]
+RewriteRule ^sauces$ https://%{HTTP_HOST}/course/sauces [R=301]
+RewriteRule ^side-dishes$ https://%{HTTP_HOST}/course/side-dishes [R=301]
+RewriteRule ^snacks$ https://%{HTTP_HOST}/course/snacks [R=301]
+RewriteRule ^soup$ https://%{HTTP_HOST}/course/soup [R=301]
+RewriteRule ^starters$ https://%{HTTP_HOST}/course/starters [R=301]
+RewriteRule ^tapas$ https://%{HTTP_HOST}/theme/tapas [R=301]
+RewriteRule ^recipe/beefsteak-tomato-carpaccio-black-olives$ https://%{HTTP_HOST}/recipe/coeur-de-boeuf-tomato-carpaccio-with-black-olives [R=301]
+
+# Remove trailing slash from non-filepath urls
+RewriteCond %{REQUEST_URI} /(.+)/$
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ https://%{HTTP_HOST}/%1 [R=301,L]
+
+# Include trailing slash on directory
+RewriteCond %{REQUEST_URI} !(.+)/$
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+)$ https://%{HTTP_HOST}/$1/ [R=301,L]
+
+RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ public/$1
+
+# Cache-control
+<filesMatch ".(ico|pdf|flv|jpg|jpeg|png|gif|svg|js|css|swf)$">
+    Header set Cache-Control "max-age=31536000, public"
+</filesMatch>
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access 1 year"
+    ExpiresByType image/jpeg "access 1 year"
+    ExpiresByType image/gif "access 1 year"
+    ExpiresByType image/png "access 1 year"
+    ExpiresByType image/svg "access 1 year"
+    ExpiresByType text/css "access 1 month"
+    ExpiresByType application/pdf "access 1 month"
+    ExpiresByType application/javascript "access 1 month"
+    ExpiresByType application/x-javascript "access 1 month"
+    ExpiresByType application/x-shockwave-flash "access 1 month"
+    ExpiresByType image/x-icon "access 1 year"
+    ExpiresDefault "access 1 month"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  # Compress HTML, CSS, JavaScript, Text, XML and fonts
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+  AddOutputFilterByType DEFLATE application/x-font
+  AddOutputFilterByType DEFLATE application/x-font-opentype
+  AddOutputFilterByType DEFLATE application/x-font-otf
+  AddOutputFilterByType DEFLATE application/x-font-truetype
+  AddOutputFilterByType DEFLATE application/x-font-ttf
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE font/opentype
+  AddOutputFilterByType DEFLATE font/otf
+  AddOutputFilterByType DEFLATE font/ttf
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE image/x-icon
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+
+  # Remove browser bugs (only needed for really old browsers)
+  BrowserMatch ^Mozilla/4 gzip-only-text/html
+  BrowserMatch ^Mozilla/4\.0[678] no-gzip
+  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+  Header append Vary User-Agent
+  # force deflate for mangled headers
+  # developer.yahoo.com/blogs/ydn/posts/2010/12/pushing-beyond-gzipping/
+  <IfModule mod_setenvif.c>
+    <IfModule mod_headers.c>
+      SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
+      RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
+    </IfModule>
+  </IfModule>
+
+  # HTML, TXT, CSS, JavaScript, JSON, XML, HTC:
+  <IfModule filter_module>
+    FilterDeclare   COMPRESS
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'text/html'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'text/css'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'text/plain'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'text/xml'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'text/x-component'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'application/javascript'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'application/json'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'application/xml'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'application/xhtml+xml'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'application/rss+xml'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'application/atom+xml'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'application/vnd.ms-fontobject'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'image/svg+xml'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'application/x-font-ttf'"
+    FilterProvider COMPRESS DEFLATE "%{CONTENT_TYPE} = 'font/opentype'"
+    FilterChain     COMPRESS
+    FilterProtocol  COMPRESS  DEFLATE change=yes;byteranges=no
+  </IfModule>
+
+  <IfModule !mod_filter.c>
+    # Legacy versions of Apache
+    AddOutputFilterByType DEFLATE text/html text/plain text/css application/json
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE text/xml application/xml text/x-component
+    AddOutputFilterByType DEFLATE application/xhtml+xml application/rss+xml
+    AddOutputFilterByType DEFLATE application/atom+xml
+    AddOutputFilterByType DEFLATE image/svg+xml application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE application/x-font-ttf font/opentype
+  </IfModule>
+</IfModule>
+
+<IfModule !mod_deflate.c>
+    #Apache deflate module is not defined, active the page compression through PHP ob_gzhandler
+    php_flag output_buffering On
+    php_value output_handler ob_gzhandler
+</IfModule>
+
+<ifModule mod_gzip.c>
+    mod_gzip_on Yes
+    mod_gzip_dechunk Yes
+    mod_gzip_item_include file .(html?|txt|css|js|php|pl)$
+    mod_gzip_item_include handler ^cgi-script$
+    mod_gzip_item_include mime ^text/.*
+    mod_gzip_item_include mime ^application/x-javascript.*
+    mod_gzip_item_exclude mime ^image/.*
+    mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+</ifModule>
