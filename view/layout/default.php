@@ -246,9 +246,6 @@
                                 <a class="dropdown-item" href="<?php echo Core::url('converter'); ?>">Converter</a>
                             </div>
                         </li>
-                        <li class="nav-item d-lg-none confetti-button">
-                            <a class="nav-link text-dark" href="<?php echo Core::url('recipe/verrassing'); ?>" aria-label="Receive a random recipe">🎁 Surprise me 🎁</a>
-                        </li>
                         <?php if(!SessionHelper::isLoggedIn()): ?>
                             <li class="nav-item <?php echo $_request->isCurrentController('community')?'active text-green':''; ?>">
                                 <a class="nav-link text-dark" href="<?php echo Core::url('login'); ?>">Log in</a>

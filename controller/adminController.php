@@ -1526,73 +1526,147 @@ class adminController extends Controller
         }
     }
 
-    public function hreflang()
-    {
-        $file = ROOT . 'hreflang.csv';
+//    public function fixwords()
+//    {
+//        /**
+//         * Get recipes.
+//         */
+//        $where = [
+//            // 'id' => 170,
+//        ];
+//
+//        $recipes = $this->recipe_model->getRecords($where);
+//
+//        foreach ($recipes as $recipe) {
+//            //echo $recipe['content'];
+//
+//            $content = $recipe['content'];
+//
+//            /**
+//             * Only update for text within paragraph tags.
+//             */
+//            $convertedContent = preg_replace_callback('/<p>(.*?)<\/p>/s', function ($matches) {
+//                /**
+//                 * Ignore <a href> links.
+//                 */
+//                if (preg_match('/<a href="(.*?)">(.*?)<\/a>/s', $matches[0])) {
+//                    return $matches[0];
+//                }
+//
+//                $value = $this->convertToLowerCase($matches[0]);
+//                $value = $this->capitalizeSentences($value);
+//
+//                /**
+//                 * Capitalise the first letter of the first word.
+//                 */
+//                $value = preg_replace_callback('/<p>(.*?)<\/p>/s', function ($matches) {
+//                    return '<p>' . ucfirst($matches[1]) . '</p>';
+//                }, $value);
+//
+//                return $value;
+//
+//            }, $content);
+//
+//            /**
+//             * Update recipe.
+//             */
+//            $this->recipe_model->update($recipe['id'], [
+//                'content' => $convertedContent,
+//            ]);
+//
+//            echo $recipe['id'] . ' updated<br>';
+//        }
+//    }
+//
+//    // Function to convert all uppercase words to lowercase within sentences
+//    function convertToLowerCase($content)
+//    {
+//        $words = explode(' ', $content);
+//        $result = [];
+//        foreach ($words as $word) {
+//            $result[] = strtolower($word);
+//        }
+//        return implode(' ', $result);
+//    }
+//
+//    // Function to capitalize the first character of each sentence
+//    function capitalizeSentences($content)
+//    {
+//        $sentences = explode('.', $content);
+//        $result = [];
+//        foreach ($sentences as $sentence) {
+//            $result[] = ucfirst(trim($sentence));
+//        }
+//        return implode('. ', $result);
+//    }
 
-        $english_prefix = 'https://ohmydish.com/recipe/';
-        $dutch_prefix = 'https://ohmydish.nl/recept/';
-
-        $hreflangs = [];
-
-        $row = 1;
-        if (($handle = fopen($file, "r")) !== FALSE) {
-            while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
-                $num = count($data);
-                $row++;
-                for ($c=0; $c < $num; $c++) {
-                    $e = explode(';', $data[$c]);
-                    $mapping = [];
-
-                    foreach ($e as $i => $part) {
-                        if ($i <= 4) {
-                            switch ($i) {
-                                case 0:
-                                    if (!intval(trim($part))) {
-                                        $part = 1; // strange.. string(4) "1" O_o;
-                                    }
-                                    $mapping['dutch_id'] = trim($part);
-                                    break;
-                                case 1:
-                                    $mapping['dutch_url'] = $dutch_prefix . $part;
-                                    break;
-                                case 2:
-                                    $mapping['english_id'] = $part;
-                                    break;
-                                case 3:
-                                    $mapping['english_url'] = $english_prefix . $part;
-                                    break;
-                            }
-                        }
-                    }
-
-                    $hreflangs[] = $mapping;
-                }
-            }
-            fclose($handle);
-        }
-
-        $skipped = [];
-        foreach ($hreflangs as $hreflang) {
-            if (strlen($hreflang['english_id'])) {
-                $recipe = $this->recipe_model->get($hreflang['english_id']);
-
-                if (is_array($recipe)) {
-                    if (count($recipe)) {
-                        if (!strlen($recipe['dutch_url'])) {
-                            $this->recipe_model->update($recipe['id'], [
-                                'dutch_url' => $hreflang['dutch_url']
-                            ]);
-                        }
-                    } else {
-                        $skipped[] = $hreflang;
-                    }
-                }
-            } else {
-                $skipped[] = $hreflang;
-            }
-        }
-
-        dd($skipped);
-    }
+//    public function hreflang()
+//    {
+//        $file = ROOT . 'hreflang.csv';
+//
+//        $english_prefix = 'https://ohmydish.com/recipe/';
+//        $dutch_prefix = 'https://ohmydish.nl/recept/';
+//
+//        $hreflangs = [];
+//
+//        $row = 1;
+//        if (($handle = fopen($file, "r")) !== FALSE) {
+//            while (($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
+//                $num = count($data);
+//                $row++;
+//                for ($c=0; $c < $num; $c++) {
+//                    $e = explode(';', $data[$c]);
+//                    $mapping = [];
+//
+//                    foreach ($e as $i => $part) {
+//                        if ($i <= 4) {
+//                            switch ($i) {
+//                                case 0:
+//                                    if (!intval(trim($part))) {
+//                                        $part = 1; // strange.. string(4) "1" O_o;
+//                                    }
+//                                    $mapping['dutch_id'] = trim($part);
+//                                    break;
+//                                case 1:
+//                                    $mapping['dutch_url'] = $dutch_prefix . $part;
+//                                    break;
+//                                case 2:
+//                                    $mapping['english_id'] = $part;
+//                                    break;
+//                                case 3:
+//                                    $mapping['english_url'] = $english_prefix . $part;
+//                                    break;
+//                            }
+//                        }
+//                    }
+//
+//                    $hreflangs[] = $mapping;
+//                }
+//            }
+//            fclose($handle);
+//        }
+//
+//        $skipped = [];
+//        foreach ($hreflangs as $hreflang) {
+//            if (strlen($hreflang['english_id'])) {
+//                $recipe = $this->recipe_model->get($hreflang['english_id']);
+//
+//                if (is_array($recipe)) {
+//                    if (count($recipe)) {
+//                        if (!strlen($recipe['dutch_url'])) {
+//                            $this->recipe_model->update($recipe['id'], [
+//                                'dutch_url' => $hreflang['dutch_url']
+//                            ]);
+//                        }
+//                    } else {
+//                        $skipped[] = $hreflang;
+//                    }
+//                }
+//            } else {
+//                $skipped[] = $hreflang;
+//            }
+//        }
+//
+//        dd($skipped);
+//    }
 }

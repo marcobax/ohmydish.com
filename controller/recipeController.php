@@ -22,7 +22,7 @@ class recipeController extends Controller
     /**
      * Overview of recipes.
      */
-    public function index()
+    public function index(): void
     {
         $categories_by_season = [
             $this->category_model->getBySlug('winter-recipes'),
@@ -50,7 +50,7 @@ class recipeController extends Controller
      *
      * @param string $slug
      */
-    public function comments(string $slug)
+    public function comments(string $slug): void
     {
         if (!$recipe = $this->recipe_model->getBySlug($slug)) {
             $this->show404();
@@ -69,7 +69,7 @@ class recipeController extends Controller
                 // Spam check.
                 $akismet_helper = new AkismetHelper();
                 $spam = $akismet_helper->comment_check([
-                    'user_ip'              => $ip_address?$ip_address:'unknown',
+                    'user_ip'              => $ip_address?:'unknown',
                     'comment_type'         => 'comment',
                     'comment_author'       => trim($post_values['author']),
                     'comment_author_email' => trim($post_values['email']),
@@ -144,9 +144,8 @@ class recipeController extends Controller
 
     /**
      * Recipe detail.
-     *
      */
-    public function detail()
+    public function detail(): void
     {
         if (!$recipe = $this->recipe_model->getBySlug($this->getSlug())) {
             $this->show404();
@@ -202,18 +201,9 @@ class recipeController extends Controller
     }
 
     /**
-     * Selects a random recipe.
-     */
-    public function verrassing()
-    {
-        $recipe = $this->recipe_model->getRecords([],['RAND()','asc'],[0,1]);
-        Core::redirect(Core::url('recipe/' . $recipe[0]['slug']) . '?source=web&action=surprise');
-    }
-
-    /**
      * The latest recipes.
      */
-    public function latest()
+    public function latest(): void
     {
         $this->setTotalResults($this->recipe_model->getRecords([],[],[],true));
 

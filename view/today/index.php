@@ -6,7 +6,6 @@
 
             <p class="text-center">
                 <a href="<?php echo Core::url('recipe-index'); ?>" class="btn btn-success btn-lg">Recipe index</a>
-                <a href="<?php echo Core::url('recipe/verrassing'); ?>" class="btn btn-dark btn-lg">Surprise me</a>
             </p>
             <p class="text-center">&dash; or &dash;</p>
         </div>
