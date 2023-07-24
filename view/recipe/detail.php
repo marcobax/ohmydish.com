@@ -7,10 +7,10 @@
             <?php if(SessionHelper::isLoggedIn() && SessionHelper::hasPermission('is_admin') && 'publish' === $recipe['status']): ?>
                 <a class="btn btn-warning btn-lg d-print-none" href="<?php echo Core::url('admin/recipe_edit/' . $recipe['id']); ?>">Edit</a>
             <?php endif; ?>
-            <h1 class="fancy text-center mb-0 with-stripe"><?php echo $recipe['title']; ?></h1>
+            <h1 class="mb-0 mt-3 font-weight-bold"><?php echo ucwords($recipe['title']); ?></h1>
             <?php if($recipe['average_rating']): ?>
-                <div class="text-center mt-2 starrating">
-                    <span class="nowrap pl-4">
+                <div class="mt-2 starrating">
+                    <span class="nowrap">
                         <?php for($i=0; $i<$recipe['average_rating'];$i++): ?>
                             <span class="oi oi-star h4" style="color: orange;" title="Average score" aria-hidden="true"></span>
                         <?php endfor; ?>
@@ -23,21 +23,133 @@
             <?php endif; ?>
         </div>
         <div class="col-12">
-            <p class="text-left text-muted mt-2"><?php echo $recipe['excerpt']; ?>
-                <?php if(isset($disqusEnabled) && true === $disqusEnabled): ?>
-                    <a href="<?php echo $page_canonical; ?>#disqus_thread">Leave a comment</a>
-                <?php endif; ?>
-            </p>
+            <p class="text-left mt-2"><i><?php echo $recipe['excerpt']; ?></i></p>
         </div>
-        <div class="col-12 d-md-none text-center">
-            <div class="btn-group text-center mb-4">
-                <a href="#ingredients" class="btn btn-sm btn-outline-primary">Ingredients</a>
-                <a href="#kitchen_equipment" class="btn btn-sm btn-outline-primary">Kitchen equipment</a>
-                <a href="#preparation" class="btn btn-sm btn-outline-primary">Preparation</a>
+        <div class="col-12">
+            <a href="#preparation" class="mb-4 d-block">
+                <div style="text-transform: uppercase;" class="bg-grey d-block text-center p-2">
+                &darr; Jump To Recipe
+                </div>
+            </a>
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <h3 class="mb-2 text-green font-weight-bold">In this recipe:</h3>
+                    <p class="my-1">The main thing:</p>
+                    <div class="basic-list bottom-links">
+                        <ul>
+                            <li class="pl-0 pl-md-3">
+                                <a href="#preparation">Take Me To The Recipe</a>
+                            </li>
+                            <?php if($recipe['seo_text'] && strlen($recipe['seo_text'])): ?>
+                                <li class="pl-0 pl-md-3">
+                                <a href="#about">About <?php echo ucwords($recipe['title']); ?></a>
+                            </li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+
+                    <p class="my-1 mt-3">Other stuff:</p>
+                    <div class="basic-list bottom-links">
+                        <ul>
+                            <li class="pl-0 pl-md-3">
+                                <a href="#ingredients">Ingredients</a>
+                            </li>
+                            <li class="pl-0 pl-md-3">
+                                <a href="#kitchen_equipment">Kitchen Equipment</a>
+                            </li>
+                            <li class="pl-0 pl-md-3">
+                                <a href="#faq"><?php echo $recipe['title']; ?>: Frequently Asked Questions</a>
+                            </li>
+                            <?php if(isset($disqusEnabled) && true === $disqusEnabled): ?>
+                                <li class="pl-0 pl-md-3">
+                                    <a href="#disqus_thread">Reviews</a>
+                                </li>
+                            <?php endif; ?>
+                            <li class="pl-0 pl-md-3">
+                                <a href="#ranking">Rank This Recipe</a>
+                            </li>
+                            <li class="pl-0 pl-md-3">
+                                <a href="#related-recipes">Other Recipes You Can Try</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <script type="application/ld+json">
+                        {
+                            "@context": "https://schema.org",
+                            "@type": "BreadcrumbList",
+                            "itemListElement": [{
+                                "@type": "ListItem",
+                                "position": 1,
+                                "name": "Take Me To The Recipe",
+                                "item": "<?php echo Core::url('recipe/' . $recipe['slug']); ?>#preparation"
+                            },
+                            <?php if($recipe['seo_text'] && strlen($recipe['seo_text'])): ?>
+                            {
+                                "@type": "ListItem",
+                                "position": 2,
+                                "name": "About",
+                                "item": "<?php echo Core::url('recipe/' . $recipe['slug']); ?>#about"
+                            },
+                            <?php endif; ?>
+                            {
+                                "@type": "ListItem",
+                                "position": 3,
+                                "name": "Ingredients",
+                                "item": "<?php echo Core::url('recipe/' . $recipe['slug']); ?>#ingredients"
+                            },{
+                                "@type": "ListItem",
+                                "position": 4,
+                                "name": "Kitchen Equipment",
+                                "item": "<?php echo Core::url('recipe/' . $recipe['slug']); ?>#kitchen_equipment"
+                            },{
+                                "@type": "ListItem",
+                                "position": 5,
+                                "name": "<?php echo $recipe['title']; ?>: Frequently Asked Questions",
+                                "item": "<?php echo Core::url('recipe/' . $recipe['slug']); ?>#faq"
+                            },
+                            <?php if(isset($disqusEnabled) && true === $disqusEnabled): ?>
+                            {
+                                "@type": "ListItem",
+                                "position": 6,
+                                "name": "Reviews",
+                                "item": "<?php echo Core::url('recipe/' . $recipe['slug']); ?>#disqus_thread"
+                            },
+                            <?php endif; ?>
+                            {
+                                "@type": "ListItem",
+                                "position": 7,
+                                "name": "Rank This Recipe",
+                                "item": "<?php echo Core::url('recipe/' . $recipe['slug']); ?>#ranking"
+                            },{
+                                "@type": "ListItem",
+                                "position": 8,
+                                "name": "Other Recipes You Can Try",
+                                "item": "<?php echo Core::url('recipe/' . $recipe['slug']); ?>#related-recipes"
+                            }]
+                        }
+                    </script>
+                </div>
+                <div class="col-12 col-md-6 d-none d-md-block">
+                    <figure>
+                        <picture>
+                            <img width="550" height="550" src="<?php echo TemplateHelper::getThumbnailImage($recipe); ?>" alt="<?php echo $recipe['title']; ?>" class="featured-image-sm img-fluid shadow rounded border">
+                        </picture>
+                    </figure>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<?php if($recipe['seo_text'] && $recipe['seo_text'] !== ''): ?>
+    <div class="container" id="about">
+        <div class="row">
+            <div class="col-12">
+                <div id="the-content" class="unselectable"><?php echo Core::fixHeadings(Core::nl2p($recipe['seo_text'])); ?></div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 <div class="row m-0 mb-2 position-relative featured-image-container d-print-none text-center">
     <div class="mx-2 mx-md-0 w-100">
         <?php TemplateHelper::includeHeart($recipe); ?>
@@ -65,8 +177,8 @@
             <?php require(ROOT . '/view/_advertenties/728x90_1.php'); ?>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 col-md-4 col-lg-3">
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-8">
             <div class="d-none d-print-block mb-2 pt-3">
                 <img width="1200" height="800" src="<?php echo TemplateHelper::getFeaturedImage($recipe); ?>" alt="<?php echo $recipe['title']; ?>" class="img-fluid" loading="lazy">
             </div>
@@ -77,16 +189,20 @@
                         <span class="h6 m0 p0 text-center text-success">(&check; Tip: click to check off)</span>
                     </div>
                     <hr class="d-md-none mb-0">
-                    <?php echo $recipe['ingredients']; ?>
+                    <?php echo str_replace('<li>', '<li class="pl-0 pl-md-3">', $recipe['ingredients']); ?>
                 </div>
             <?php endif; ?>
             <?php if($recipe['ingredients_image']): ?>
                 <div class="text-center d-print-none">
-                    <img data-remote="<?php echo Core::upload_path($recipe['ingredients_image']); ?>" data-gallery="recipe-gallery" data-toggle="lightbox" data-title="<?php echo $recipe['title']; ?> ingredients" width="1024" height="768" src="<?php echo Core::upload_path($recipe['ingredients_image']); ?>" class="img-fluid mt-2 rounded" alt="<?php echo $recipe['title']; ?> ingredients" loading="lazy">
+                    <img data-remote="<?php echo Core::upload_path($recipe['ingredients_image']); ?>" data-gallery="recipe-gallery" data-toggle="lightbox" data-title="<?php echo ucwords($recipe['title']); ?> Ingredients" width="1024" height="768" src="<?php echo Core::upload_path($recipe['ingredients_image']); ?>" class="img-fluid mt-2 rounded" alt="<?php echo $recipe['title']; ?> ingredients" loading="lazy">
                     <br>
                     <span class="h6 m0 p0">&uarr; click on the photo to enlarge</span>
             </div>
             <?php endif; ?>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-8">
             <?php if($recipe['kitchen_equipment']): ?>
                 <div class="basic-list kitchen_equipment" id="kitchen_equipment">
                     <hr class="d-md-none">
@@ -95,7 +211,7 @@
                             <span class="h6 m0 p0 text-center text-success">(&check; Tip: click to check off)</span>
                         </div>
                     <hr class="d-md-none mb-0">
-                    <?php echo $recipe['kitchen_equipment']; ?>
+                    <?php echo str_replace('<li>', '<li class="pl-0 pl-md-3">', $recipe['kitchen_equipment']); ?>
                 </div>
             <?php endif; ?>
             <hr class="d-print-none">
@@ -114,8 +230,8 @@
                 <?php require(ROOT . '/view/_advertenties/300x250_3.php'); ?>
             </div>
         </div>
-        <div class="col-12 col-md-8 col-lg-7" id="preparation">
-            <div class="text-center"><span class="h2 fancy with-stripe">Preparation</span></div>
+        <div class="col-12" id="preparation">
+            <div class="text-center"><span class="h2 fancy with-stripe"><?php echo ucwords($recipe['title']); ?></span></div>
             <div class="d-none d-md-block">
                 <hr class="d-print-none">
                 <div class="row">
@@ -134,20 +250,18 @@
             </div>
             <div class="text-center d-none d-print-block">
                 <p>View the original recipe via:<br>
-                    <strong><?php echo Core::url('recipe/' . $recipe['slug']) ?></strong></p>
+                    <strong><?php echo Core::url('recipe/' . $recipe['slug']); ?></strong></p>
                 <hr>
             </div>
 	    <div id="the-content" class="unselectable"><?php echo Core::fixHeadings(Core::nl2p($recipe['content'])); ?></div>
-<?php if(false): ?>
-            <div class="row rating d-print-none">
-                <div class="col-12 text-center">
-                    <hr>
-                    <strong>What do you think of this recipe?</strong>
-                    <div class="star-rating" data-rating="<?php echo $recipe['average_rating']; ?>" data-url="<?php echo Core::url('rating/xhr_rating?pt=recipe&slug=' . $recipe['slug']); ?>"></div>
-                    <span id="total-votes"><?php echo $recipe['rating_label']; ?></span>
-                </div>
+        <div class="row rating d-print-none" id="ranking">
+            <div class="col-12 text-center">
+                <hr>
+                <strong>Rank this recipe!</strong>
+                <div class="star-rating" data-rating="<?php echo $recipe['average_rating']; ?>" data-url="<?php echo Core::url('rating/xhr_rating?pt=recipe&slug=' . $recipe['slug']); ?>"></div>
+                <span id="total-votes"><?php echo $recipe['rating_label']; ?></span>
             </div>
-<?php endif; ?>
+        </div>
         <div class="d-none d-lg-block col-lg-2">
             <div class="adspace text-center d-print-none mb-3">
                 <?php require(ROOT . '/view/_advertenties/300x250_2.php'); ?>
@@ -161,19 +275,19 @@
             <?php require(ROOT . '/view/_advertenties/728x90_2.php'); ?>
         </div>
     </div>
-    <div class="row d-print-none">
-        <div class="col-12">
-            <p class="text-center d-md-none">
-                <a href="<?php echo Core::url('recipe/comments/' . $recipe['slug']); ?>" class="text-dark text-muted">View comments (<?php echo $recipe['total_comments']; ?>)</a>
-            </p>
-            <hr class="d-md-none">
-        </div>
-    </div>
+<!--    <div class="row d-print-none">-->
+<!--        <div class="col-12">-->
+<!--            <p class="text-center d-md-none">-->
+<!--                <a href="--><?php //echo Core::url('recipe/comments/' . $recipe['slug']); ?><!--" class="text-dark text-muted">View comments (--><?php //echo $recipe['total_comments']; ?><!--)</a>-->
+<!--            </p>-->
+<!--            <hr class="d-md-none">-->
+<!--        </div>-->
+<!--    </div>-->
             <?php if($recipe['faq']): ?>
-                <div class="row d-print-none mb-3 faq">
+                <div class="row d-print-none mb-3 faq" id="faq">
                     <div class="col-12">
                         <div class="bg-grey rounded border shadow-sm p-4">
-                            <h3 class="mb-0 text-green font-weight-bold"><?php echo $recipe['title']; ?>: frequently asked questions</h3>
+                            <h3 class="mb-0 text-green font-weight-bold"><?php echo ucwords($recipe['title']); ?>: frequently asked questions</h3>
                             <?php echo Core::nl2p($recipe['faq']); ?>
                         </div>
                     </div>

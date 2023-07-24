@@ -198,6 +198,53 @@ if ($('#kitchen_equipment')) {
         });
 }
 
+if ($('#seo_text')) {
+    ClassicEditor
+        .create(document.querySelector('#seo_text'), {
+            language: 'en',
+            link: {
+                decorators: {
+                    openInNewTab: {
+                        mode: 'manual',
+                        label: 'Open in a new tab',
+                        attributes: {
+                            target: '_blank',
+                            rel: 'noopener noreferrer'
+                        }
+                    },
+                    openInNewTabNoFollow: {
+                        mode: 'manual',
+                        label: 'Open in a new tab + nofollow',
+                        attributes: {
+                            target: '_blank',
+                            rel: 'noopener noreferrer nofollow'
+                        }
+                    },
+                    noFollow: {
+                        mode: 'manual',
+                        label: 'NoFollow',
+                        attributes: {
+                            rel: 'nofollow noopener noreferrer'
+                        }
+                    }
+                }
+            },
+            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
+        })
+        .then(editor => {
+            window.kitchen_equipment_editor = editor;
+            const original_kitchen_equipment = JSON.stringify(editor.getData());
+
+            editor.model.document.on('change', () => {
+                const new_val = JSON.stringify(editor.getData());
+                changed = original_kitchen_equipment.localeCompare(new_val);
+            });
+        })
+        .catch(err => {
+            console.error(err.stack);
+        });
+}
+
 if ($('#faq')) {
     ClassicEditor
         .create(document.querySelector('#faq'), {

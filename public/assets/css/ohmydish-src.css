@@ -73,7 +73,7 @@ h1.fancy,h2.fancy,h3.fancy,h4.fancy,h5.fancy, .ingredients h1, .ingredients h2, 
 .featured-image { position: relative; min-height: 500px; background-size: cover; background-repeat: no-repeat; background-position: center; }
 .featured-image-sm { min-height: 190px; }
 .basic-list, .basic-list ul { margin: 0; padding-left: 0; list-style-type: none; }
-.ingredients ul ul , .kitchen_equipment ul ul{ margin-left: 2em; }
+.ingredients ul ul, .kitchen_equipment ul ul { margin-left: 2em; }
 .ingredients ul li, .kitchen_equipment ul li, .bottom-links ul li { border-bottom: 1px dashed lightgrey; padding-top: 5px; padding-bottom: 5px; font-size: 18px; }
 .ingredients ul li:last-child, .kitchen_equipment ul li:last-child, .bottom-links ul li:last-child { border: 0; }
 .bg-green { background: linear-gradient(20deg, #339966, #95b754); }

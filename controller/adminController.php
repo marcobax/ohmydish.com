@@ -314,6 +314,9 @@ class adminController extends Controller
             $content = $post_values['content'];
             $content = str_replace('<img src="', '<img class="img-fluid mx-auto d-block" src="', $content);
 
+            $seoText = $post_values['seo_text'];
+            $seoText = str_replace('<img src="', '<img class="img-fluid mx-auto d-block" src="', $seoText);
+
             $values = [
                 'updated' => date('Y-m-d H:i:s'),
                 'title' => $post_values['title'],
@@ -332,7 +335,8 @@ class adminController extends Controller
                 'yield' => strlen($post_values['yield'])?$post_values['yield']:0,
                 'calories' => strlen($post_values['calories'])?$post_values['calories']:0,
                 'faq' => $post_values['faq'],
-                'dutch_url' => $post_values['dutch_url']
+                'dutch_url' => $post_values['dutch_url'],
+                'seo_text' => $seoText,
             ];
 
             if ($values['status'] === 'publish') {
