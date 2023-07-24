@@ -20,6 +20,15 @@
                     </span>
                     <span class="text-muted small">(<?php echo $recipe['total_votes']; ?>)</span>
                 </div>
+            <?php else: ?>
+                <div class="mt-2 starrating" onclick="document.location.href='#ranking';">
+                    <span class="nowrap">
+                        <?php for($i=$recipe['average_rating']; $i<5;$i++): ?>
+                            <span class="oi oi-star h4" style="color: lightgrey;" title="Average score" aria-hidden="true"></span>
+                        <?php endfor; ?>
+                    </span>
+                    <span class="text-muted small">(0)</span>
+                </div>
             <?php endif; ?>
         </div>
         <div class="col-12">
