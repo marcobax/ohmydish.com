@@ -169,7 +169,7 @@ class RecipeModel extends Model
 
                 $sd['video'] = [
                     '@type'        => 'VideoObject',
-                    'name'         => 'The Youtube kanaal of Ohmydish',
+                    'name'         => 'The Youtube channel of Ohmydish',
                     'description'  => 'Every now and then we publish food related content on this chanel.',
                     'uploadDate'   => $recipe['published'],
                     'duration'     => 'PT' . $recipe['totaltime'],
@@ -266,6 +266,8 @@ class RecipeModel extends Model
 
                     $question_id = 0;
                     foreach ($e as $part) {
+                        $part = preg_replace('/<p([^>]*)>/i', '<p>', $part);
+                        $part = preg_replace('/<span([^>]*)>/i', '', $part);
                         $part = str_replace('<p>', '', $part);
                         $part = str_replace('</p>', '', $part);
 
@@ -299,7 +301,9 @@ class RecipeModel extends Model
 
                     $sd['mainEntity'] = $questions;
 
-                    $default_schema['@graph'][] = $sd;
+                    if (is_array($questions) && count($questions)) {
+                        $default_schema['@graph'][] = $sd;
+                    }
                 }
             }
         }

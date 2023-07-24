@@ -120,6 +120,8 @@ class CategoryModel extends Model
 
                     $question_id = 0;
                     foreach ($e as $part) {
+                        $part = preg_replace('/<p([^>]*)>/i', '<p>', $part);
+                        $part = preg_replace('/<span([^>]*)>/i', '', $part);
                         $part = str_replace('<p>', '', $part);
                         $part = str_replace('</p>', '', $part);
 
@@ -152,7 +154,9 @@ class CategoryModel extends Model
 
                     $sd['mainEntity'] = $questions;
 
-                    $default_schema['@graph'][] = $sd;
+                    if (is_array($questions) && count($questions)) {
+                        $default_schema['@graph'][] = $sd;
+                    }
                 }
             }
         }
