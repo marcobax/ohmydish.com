@@ -8,7 +8,7 @@ require_once(ROOT . 'controller/courseController.php');
  */
 class themeController extends courseController
 {
-    public function index()
+    public function index(): void
     {
         $this->set([
             'meta_description'     => 'Overview of recipes per theme, sorted by latest to oldest.',
@@ -23,7 +23,7 @@ class themeController extends courseController
     /**
      * Recipe category detail.
      */
-    public function detail($type = 'theme')
+    public function detail($type = 'theme'): void
     {
         parent::detail($type);
     }

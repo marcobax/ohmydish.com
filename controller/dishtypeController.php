@@ -11,7 +11,7 @@ class dishtypeController extends courseController
     /**
      * Recipe category detail.
      */
-    public function detail($type = 'dishtype')
+    public function detail($type = 'dishtype'): void
     {
         $this->category_model = new CategoryModel();
 

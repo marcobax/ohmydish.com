@@ -169,7 +169,7 @@ class courseController extends Controller
             'min_rating'            => $min_rating,
             'max_rating'            => $max_rating,
             'page_title'            => (isset($category['seo_title'])&&strlen($category['seo_title']))?$category['seo_title']:ucfirst($category['type']) . ' ' . strtolower($category['title']),
-            'meta_description'      => (!$category['content'])?'Categorie: ' . $category['type'] . ', onderwerp: ' . $category['title']:strip_tags($category['content']),
+            'meta_description'      => (!$category['content'])?'Category: ' . $category['type'] . ', subject: ' . $category['title']:strip_tags($category['content']),
             'page_canonical'        => Core::url($category['type'] . '/' . $category['slug']),
             'og_image'              => TemplateHelper::getFeaturedImage($category),
             'category'              => $category,

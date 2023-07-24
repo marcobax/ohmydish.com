@@ -138,16 +138,6 @@
                 <hr>
             </div>
 	    <div id="the-content" class="unselectable"><?php echo Core::fixHeadings(Core::nl2p($recipe['content'])); ?></div>
-            <?php if($recipe['faq']): ?>
-                <div class="row d-print-none mb-3 faq">
-                    <div class="col-12">
-                        <div class="bg-grey rounded border shadow-sm p-4">
-                            <h3 class="mb-0 text-green font-weight-bold"><?php echo $recipe['title']; ?>: frequently asked questions</h3>
-                            <?php echo Core::nl2p($recipe['faq']); ?>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
 <?php if(false): ?>
             <div class="row rating d-print-none">
                 <div class="col-12 text-center">
@@ -158,25 +148,6 @@
                 </div>
             </div>
 <?php endif; ?>
-            <div class="d-print-none">
-                <hr>
-                <?php if(is_array($category_dish_types) && count($category_dish_types)): ?>
-                    <div class="text-center mb-4">
-                        <?php foreach($category_dish_types as $category_dish_type): ?>
-                            <a href="<?php echo Core::url('dishtype/' . strtolower($category_dish_type['slug'])); ?>" class="badge badge-primary"><?php echo ucfirst($category_dish_type['title']); ?></a>
-                        <?php endforeach; ?>
-                    </div>
-                    <hr>
-                <?php endif; ?>
-<?php if(false): ?>
-                <p class="bg-dark text-white text-center p-2 rounded">
-                    Did you make this recipe or are you planning to?<br>
-                    Mention <a href="https://www.instagram.com/ohmydish/" target="_blank" class="text-green" rel="noreferrer noopener">@ohmydish</a>, tag <a href="https://www.instagram.com/explore/tags/ohmydish/" target="_blank" class="text-green" rel="noreferrer noopener">#ohmydish</a> on Instagram or <a class="text-green" href="<?php echo Core::url('community/save-recipe/' . $recipe['slug']); ?>">save this recipe</a>!
-                </p>
-                <hr>
-                <?php endif; ?>
-            </div>
-        </div>
         <div class="d-none d-lg-block col-lg-2">
             <div class="adspace text-center d-print-none mb-3">
                 <?php require(ROOT . '/view/_advertenties/300x250_2.php'); ?>
@@ -198,6 +169,33 @@
             <hr class="d-md-none">
         </div>
     </div>
+            <?php if($recipe['faq']): ?>
+                <div class="row d-print-none mb-3 faq">
+                    <div class="col-12">
+                        <div class="bg-grey rounded border shadow-sm p-4">
+                            <h3 class="mb-0 text-green font-weight-bold"><?php echo $recipe['title']; ?>: frequently asked questions</h3>
+                            <?php echo Core::nl2p($recipe['faq']); ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="d-print-none row w-100">
+                <?php if(is_array($category_dish_types) && count($category_dish_types)): ?>
+                    <div class="col-12 text-center mb-4">
+                        <?php foreach($category_dish_types as $category_dish_type): ?>
+                            <a href="<?php echo Core::url('dishtype/' . strtolower($category_dish_type['slug'])); ?>" class="badge badge-primary"><?php echo ucfirst($category_dish_type['title']); ?></a>
+                        <?php endforeach; ?>
+    </div>
+                <?php endif; ?>
+<?php if(false): ?>
+                <p class="bg-dark text-white text-center p-2 rounded">
+                    Did you make this recipe or are you planning to?<br>
+                    Mention <a href="https://www.instagram.com/ohmydish/" target="_blank" class="text-green" rel="noreferrer noopener">@ohmydish</a>, tag <a href="https://www.instagram.com/explore/tags/ohmydish/" target="_blank" class="text-green" rel="noreferrer noopener">#ohmydish</a> on Instagram or <a class="text-green" href="<?php echo Core::url('community/save-recipe/' . $recipe['slug']); ?>">save this recipe</a>!
+                </p>
+                <hr>
+                <?php endif; ?>
+            </div>
+        </div>
     <?php if(isset($disqusEnabled) && true === $disqusEnabled): ?>
 	<div id="disqus_thread"></div>
 	<script>

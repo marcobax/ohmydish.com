@@ -11,7 +11,7 @@ class kitchenController extends courseController
     /**
      * Overview of recipes per type of cuisine.
      */
-    public function index()
+    public function index(): void
     {
         $this->set([
             'meta_description'     => 'Overview of all recipes per type of kitchen, sorted by latest to oldest.',
@@ -26,7 +26,7 @@ class kitchenController extends courseController
     /**
      * Recipe category detail.
      */
-    public function detail($type = 'kitchen')
+    public function detail($type = 'kitchen'): void
     {
         parent::detail($type);
     }
