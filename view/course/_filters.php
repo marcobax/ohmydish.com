@@ -6,21 +6,21 @@
                     <select name="cooktime" id="cooktime" class="form-control" onchange="this.form.submit();">
                         <option value="" selected="selected">All cook times</option>
                         <option value="hour" <?php echo (array_key_exists('cooktime', $query) && $query['cooktime']==="hour")?'selected="selected"':''; ?>>More than an hour</option>
-<?php if($max_displaytime): ?>
-                        <?php foreach(range($max_displaytime, $min_displaytime, 5) as $displaytime): ?>
-                            <option value="<?php echo $displaytime; ?>" <?php echo (array_key_exists('cooktime', $query) && (int) $query['cooktime']===$displaytime)?'selected="selected"':''; ?>>Maximum of <?php echo $displaytime; ?> minutes</option>
-                        <?php endforeach; ?>
-<?php endif; ?>
+                        <?php if(isset($max_displaytime)): ?>
+                            <?php foreach(range($max_displaytime, $min_displaytime, 5) as $displaytime): ?>
+                                <option value="<?php echo $displaytime; ?>" <?php echo (array_key_exists('cooktime', $query) && (int) $query['cooktime']===$displaytime)?'selected="selected"':''; ?>>Maximum of <?php echo $displaytime; ?> minutes</option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </select>
                 </div>
                 <div class="col-6 col-md mb-2 mb-md-0">
                     <select name="total-yield" id="total-yield" class="form-control" onchange="this.form.submit();">
                         <option value="" selected="selected">All yields</option>
-<?php if($min_yield): ?>
-                        <?php foreach(range($min_yield, $max_yield) as $yield): ?>
-                            <option value="<?php echo $yield; ?>" <?php echo (array_key_exists('total-yield', $query) && (int) $query['total-yield']===$yield)?'selected="selected"':''; ?>>Minimum of <?php echo $yield; ?> <?php echo (1===$yield)?'person':'persons'; ?></option>
-                        <?php endforeach; ?>
-<?php endif; ?>
+                        <?php if(isset($min_yield)): ?>
+                            <?php foreach(range($min_yield, $max_yield) as $yield): ?>
+                                <option value="<?php echo $yield; ?>" <?php echo (array_key_exists('total-yield', $query) && (int) $query['total-yield']===$yield)?'selected="selected"':''; ?>>Minimum of <?php echo $yield; ?> <?php echo (1===$yield)?'person':'persons'; ?></option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </select>
                 </div>
                 <div class="col-6 col-md">

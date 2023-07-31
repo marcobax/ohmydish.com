@@ -201,7 +201,15 @@ if ($('#kitchen_equipment')) {
 if ($('#seo_text')) {
     ClassicEditor
         .create(document.querySelector('#seo_text'), {
+            mediaEmbed: {
+                previewsInData: true
+            },
             language: 'en',
+            ckfinder: {
+                options: {
+                    language: 'en'
+                }
+            },
             link: {
                 decorators: {
                     openInNewTab: {
@@ -229,15 +237,50 @@ if ($('#seo_text')) {
                     }
                 }
             },
-            toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList'],
+            toolbar: [
+                'heading',
+                '|',
+                'bold',
+                'italic',
+                'strikethrough',
+                'underline',
+                'link',
+                '|',
+                'bulletedList',
+                'numberedList',
+                '|',
+                'insertTable',
+                'alignment',
+                'fontColor',
+                'horizontalLine',
+                'imageInsert',
+                'removeFormat',
+                'specialCharacters',
+                'mediaEmbed'
+            ],
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side',
+                    'linkImage'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells'
+                ]
+            },
         })
         .then(editor => {
-            window.kitchen_equipment_editor = editor;
-            const original_kitchen_equipment = JSON.stringify(editor.getData());
+            window.content_editor = editor;
+            const original_content = JSON.stringify(editor.getData());
 
             editor.model.document.on('change', () => {
                 const new_val = JSON.stringify(editor.getData());
-                changed = original_kitchen_equipment.localeCompare(new_val);
+                changed = original_content.localeCompare(new_val);
             });
         })
         .catch(err => {

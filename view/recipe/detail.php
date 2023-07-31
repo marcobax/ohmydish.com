@@ -172,9 +172,9 @@
 </div>
 <div class="row m-0 mb-2 d-md-none">
     <div class="col-12 text-center pt-2">
-        <strong class="mr-2"><span class="nowrap"><span class="oi oi-clock h6" title="Kooktijd" aria-hidden="true"></span> <?php echo Template::displayTimeToDescription($recipe['displaytime']); ?></span></strong>
-        <strong><span class="nowrap"><span class="oi oi-people h6" title="Aantal personen" aria-hidden="true"></span> <?php echo Template::displayYield($recipe['yield']); ?></span></strong>
-        <strong class="ml-2"><span class="nowrap"><span class="oi oi-layers h6" title="Categorie" aria-hidden="true"></span> <a href="<?php echo Core::url($main_category['type'] . '/' . $main_category['slug']); ?>" class="text-dark"><?php echo $main_category['title']; ?></a></span></strong>
+        <strong class="mr-2"><span class="nowrap"><span class="oi oi-clock h6" title="Cooking time" aria-hidden="true"></span> <?php echo Template::displayTimeToDescription($recipe['displaytime']); ?></span></strong>
+        <strong><span class="nowrap"><span class="oi oi-people h6" title="Yield" aria-hidden="true"></span> <?php echo Template::displayYield($recipe['yield']); ?></span></strong>
+        <strong class="ml-2"><span class="nowrap"><span class="oi oi-layers h6" title="Category" aria-hidden="true"></span> <a href="<?php echo Core::url($main_category['type'] . '/' . $main_category['slug']); ?>" class="text-dark"><?php echo $main_category['title']; ?></a></span></strong>
         <?php if ($recipe['calories'] && (int) $recipe['calories']): ?>
             <strong class="ml-2" data-toggle="tooltip" title="Estimated calories per person"><span class="nowrap"><span class="oi oi-graph h6" aria-hidden="true"></span> <?php echo $recipe['calories']; ?></span> calories p.p.</strong>
         <?php endif; ?>

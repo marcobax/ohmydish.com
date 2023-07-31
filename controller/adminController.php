@@ -1530,6 +1530,142 @@ class adminController extends Controller
         }
     }
 
+    /**
+     * Overview of files.
+     */
+    public function filemanager_index()
+    {
+        $relative_directory = '';
+        $upper_directory = '';
+        $ignore_thumbnails = ['.mp3', '.mp4','.txt', '.pdf', '.xls', '.xlsx', '.csv', '.doc', '.docx', '.webp'];
+
+        $excluded = ',' . str_replace('.', '', implode(',', $ignore_thumbnails));
+
+        $query = $this->getRequest()->getQuery();
+
+        if (is_array($query) && count($query) && array_key_exists('directory', $query)) {
+            if ($query['directory'] !== '/') {
+                $relative_directory = $query['directory'];
+            }
+        }
+
+        $directory = ROOT . 'uploads';
+        if (ENV === 'dev') {
+            $directory = ROOT . UPLOADS_DIR;
+        }
+        $thumbnail_directory = ADMIN_THUMBNAIL_DIR;
+
+        if (strlen($relative_directory)) {
+            $directory .= $relative_directory;
+            $thumbnail_directory .= $relative_directory;
+        }
+
+        $upper_directory = dirname($relative_directory, 1);
+
+        $sub_directories = array_filter(glob($directory . DIRECTORY_SEPARATOR . '*'), 'is_dir');
+
+        if (!is_dir($directory)) {
+            $_SESSION['flash'] = ['type' => 'danger', 'message' => 'This directory cannot be found (' . $directory . ')'];
+            Core::redirect(Core::url('admin/filemanager_index'));
+        }
+
+        // Thumbnail directory check.
+        if (!is_dir($thumbnail_directory)) {
+            mkdir($thumbnail_directory, 0755, true);
+        }
+
+        $pattern = $directory . DIRECTORY_SEPARATOR . "*.{jpg,jpeg,png,gif,bmp,webp,tiff" . $excluded . "}";
+        $directory_images = glob($pattern, GLOB_BRACE);
+        $images = [];
+
+        foreach ($directory_images as $directory_image) {
+            $ext = '';
+            if ($pos = strrpos($directory_image, '.')) {
+                $ext = substr($directory_image, $pos);
+            }
+
+            if (
+                !in_array($ext, $ignore_thumbnails)
+            ) {
+                $image_path = $directory . DIRECTORY_SEPARATOR . basename($directory_image);
+                $image_thumbnail_path = $thumbnail_directory . DIRECTORY_SEPARATOR . basename($directory_image);
+
+                if (!file_exists($image_thumbnail_path)) {
+                    CoreHelper::createThumbnail($image_path, $image_thumbnail_path, 200, 200);
+                }
+            }
+
+            $images[] = basename($directory_image);
+        }
+
+        $directory = str_replace(ROOT, '', $directory);
+        $thumbnail_directory = str_replace(ROOT, '', $thumbnail_directory);
+
+        $this->set([
+            'page_title'          => 'Admin | Filemanager',
+            'relative_directory'  => $relative_directory,
+            'images'              => $images,
+            'thumbnail_directory' => $thumbnail_directory,
+            'directory'           => $directory,
+            'sub_directories'     => $sub_directories,
+            'upper_directory'     => $upper_directory,
+            'ignore_thumbnails'   => $ignore_thumbnails,
+        ]);
+
+        $this->render('filemanager_index');
+    }
+
+    public function filemanager_upload()
+    {
+        $relative_directory = '';
+
+        $query = $this->getRequest()->getQuery();
+
+        if (is_array($query) && count($query) && array_key_exists('directory', $query)) {
+            if ($query['directory'] !== '/') {
+                $relative_directory = $query['directory'];
+            }
+        }
+
+        $directory = ROOT . 'uploads';
+        if (ENV === 'dev') {
+            $directory = ROOT . UPLOADS_DIR;
+        }
+
+        if (strlen($relative_directory)) {
+            $directory .= $relative_directory;
+        }
+
+        if (!is_dir($directory)) {
+            $_SESSION['flash'] = ['type' => 'danger', 'message' => 'This directory cannot be found (' . $directory . ')'];
+            Core::redirect(Core::url('admin/filemanager_index'));
+        }
+
+        $files = $_FILES;
+        if (is_array($files) && count($files)) {
+            $filename = $_FILES['file']['name'];
+            $target_filename = CoreHelper::generate_filename($directory, $filename);
+
+            $target = $directory . '/' . $target_filename;
+
+            if (
+                move_uploaded_file($files['file']['tmp_name'], $target)
+            ) {
+                return true;
+            }
+
+            return false;
+        }
+
+        $this->set([
+            'page_title'         => 'Admin | Filemanager upload',
+            'relative_directory' => $relative_directory,
+            'directory'          => $directory,
+        ]);
+
+        $this->render('filemanager_upload');
+    }
+
 //    public function fixwords()
 //    {
 //        /**

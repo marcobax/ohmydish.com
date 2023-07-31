@@ -91,6 +91,9 @@
                     <a class="dropdown-item" href="<?php echo Core::url('admin/contact_index') ?>">Contact requests <span class="badge badge-primary"><?php echo $admin_contact_count; ?></span> <span class="badge badge-danger"><?php echo $admin_contact_spam_count; ?></span><?php if(isset($new_feedback) && (int) $new_feedback): ?><span class="text-success"> +<?php echo $new_feedback; ?></span> <?php endif; ?></a>
                 </div>
             </li>
+            <li class="h6 mb-0 nav-item">
+                <a class="nav-link" href="<?php echo Core::url('admin/filemanager_index') ?>">Filemanager</a>
+            </li>
             <li class="h6 mb-0 nav-item dropdown <?php echo $_request->isCurrentAction(['not_found_index'])?'active text-green':''; ?>">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
                     QoS

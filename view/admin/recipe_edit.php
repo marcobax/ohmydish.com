@@ -121,7 +121,6 @@
                 <div class="form-group">
                     <label for="seo_text">SEO text</label>
                     <textarea name="seo_text" id="seo_text" cols="30" rows="20" class="form-control"><?php echo htmlentities($recipe['seo_text']); ?></textarea>
-                    <div class="mt-2 p-2 rounded" style="border: 1px solid lightgrey; border-left: 6px solid #339966;">Total words: <span id="total-words">0</span>, total characters: <span id="total-characters">0</span></div>
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>

@@ -55,6 +55,7 @@ switch(ENV) {
         define('UPLOADS_DIR', PUBLIC_DIR . '/uploads');
         define('DEFAULT_IMAGE', DOMAIN_NAME . '/wp-content/uploads/2019/09/Dutch-plum-pie.jpg');
         define('FORUM_ENABLED', true);
+        define('ADMIN_THUMBNAIL_DIR', ROOT . 'public/cache/admin_thumbnails');
         break;
     case 'test':
         define('CACHING_ENABLED', false);
@@ -66,6 +67,7 @@ switch(ENV) {
         define('UPLOADS_DIR', PUBLIC_DIR . '/uploads');
         define('DEFAULT_IMAGE', DOMAIN_NAME . '/wp-content/uploads/2019/09/Dutch-plum-pie.jpg');
         define('FORUM_ENABLED', true);
+        define('ADMIN_THUMBNAIL_DIR', ROOT . 'public/cache/admin_thumbnails');
         break;
     default:
         define('CACHING_ENABLED', $caching_enabled);
@@ -77,7 +79,8 @@ switch(ENV) {
         define('UPLOADS_DIR', '/uploads');
         define('DEFAULT_IMAGE', DOMAIN_NAME . '/wp-content/uploads/2019/09/Dutch-plum-pie.jpg');
         define('FORUM_ENABLED', false);
-	define('GTM_KEY', 'GTM-TK4H9W6');
+	    define('GTM_KEY', 'GTM-TK4H9W6');
+        define('ADMIN_THUMBNAIL_DIR', ROOT . 'public/cache/admin_thumbnails');
 
         // Headers
         $max_age = 0;
@@ -88,6 +91,23 @@ switch(ENV) {
         header('Strict-Transport-Security: max-age=31536000; includeSubDomains; preload');
         break;
 }
+
+const IMAGE_HANDLERS = [
+    IMAGETYPE_JPEG => [
+        'load' => 'imagecreatefromjpeg',
+        'save' => 'imagejpeg',
+        'quality' => 100
+    ],
+    IMAGETYPE_PNG => [
+        'load' => 'imagecreatefrompng',
+        'save' => 'imagepng',
+        'quality' => 0
+    ],
+    IMAGETYPE_GIF => [
+        'load' => 'imagecreatefromgif',
+        'save' => 'imagegif'
+    ]
+];
 
 require_once(ROOT . 'config/core.php');
 require_once(ROOT . 'config/facebook.php');

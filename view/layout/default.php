@@ -73,6 +73,7 @@
             <link rel="stylesheet" href="<?php echo Core::asset('css/admin/fontawesome-5.15.css'); ?>">
             <link rel="stylesheet" href="<?php echo Core::asset('css/admin/amsify.suggestags.css'); ?>">
             <link rel="stylesheet" href="<?php echo Core::asset('css/admin/Chart-2.9.4.css'); ?>">
+            <link rel="stylesheet" href="<?php echo Core::asset('css/admin/dropzone.min.css'); ?>">
             <link rel="stylesheet" href="<?php echo Core::asset('css/admin/admin.css'); ?>">
 
             <script src="<?php echo Core::asset('js/admin/Chart-2.9.4.bundle.js?v=1'); ?>"></script>
@@ -513,6 +514,7 @@
             <script src="<?php echo Core::asset('js/admin/bootstrap-multiselect.js'); ?>"></script>
             <script src="<?php echo Core::asset('js/admin/ckeditor5-build-classic/ckeditor.js?v=1'); ?>"></script>
             <script src="<?php echo Core::asset('js/admin/jquery.amsify.suggestags.js?v=1'); ?>"></script>
+            <script src="<?php echo Core::asset('js/admin/dropzone.min.js'); ?>"></script>
             <script src="<?php echo Core::asset('js/admin/admin.js?v=8'); ?>"></script>
         <?php endif; ?>
     <?php if(isset($disqusEnabled) && true === $disqusEnabled): ?>
