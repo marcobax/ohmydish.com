@@ -195,7 +195,7 @@ class adminController extends Controller
         $latest_search_terms = $search_model->getRecords($where,$this->getSortOrder('id', 'desc'),$this->getPagination());
 
         $this->set([
-            'page_title'           => 'Admin | Meest recente zoekopdrachten',
+            'page_title'           => 'Admin | Recent search queries',
             'pagination'           => $this->getPagination(),
             'latest_search_terms'  => $latest_search_terms,
             'query'                => $query

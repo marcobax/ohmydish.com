@@ -32,9 +32,10 @@ class recipeController extends Controller
         ];
 
         $this->set([
-            'meta_description'      => 'Overview of all our recipes, sorted by newest to oldest.',
+            'meta_description'      => 'Overview of all recipes and categories. Choose the tastiest courses and themes for a delicious dinner.',
             'page_title'            => 'Recipe index',
             'page_canonical'        => Core::url('recipe-index'),
+            'dutch_url'             => 'https://ohmydish.nl/recepten-index',
             'categories_by_course'  => $this->category_model->getRecords(['type' => 'course', 'total_entities' => '> 0'],['title','asc']),
             'categories_by_theme'   => $this->category_model->getRecords(['type' => 'theme', 'total_entities' => '> 0'],['title','asc']),
             'categories_by_season'  => $categories_by_season,

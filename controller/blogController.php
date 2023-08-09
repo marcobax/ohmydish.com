@@ -39,8 +39,8 @@ class blogController extends Controller
         $this->setTotalResults($this->blog_model->getRecords($where,[],[],true));
 
         $this->set([
-            'page_title'       => 'Blog - Meest recente blogposts',
-            'meta_description' => 'Totaaloverzicht van alle blogposts',
+            'page_title'       => 'Blog - Recent blog posts',
+            'meta_description' => 'Overview of all blog posts',
             'page_canonical'   => Core::url('blog'),
             'blogs'            => $this->blog_model->getRecords($where, ['published', 'desc'], $this->getPagination()),
             'pagination'       => $this->getPagination(),

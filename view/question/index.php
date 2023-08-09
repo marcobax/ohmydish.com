@@ -7,7 +7,7 @@
     </div>
 </div>
 <div class="row m-0 d-none d-md-block mb-2 featured-image-container">
-    <img style="object-fit: cover; width: 100%; max-height: 200px;" width="1200" height="800" src="<?php echo Core::url('/wp-content/uploads/2016/12/Kennisbank-voor-koken.jpg'); ?>" alt="Cooking questions" class="img-fluid shadow rounded">
+    <img style="object-fit: cover; width: 100%; max-height: 200px;" width="1200" height="800" src="<?php echo Core::url('wp-content/uploads/2016/12/Kennisbank-voor-koken.jpg'); ?>" alt="Cooking questions" class="img-fluid shadow rounded">
 </div>
 <div class="container">
     <?php if(isset($questions) && is_array($questions) && count($questions)): ?>

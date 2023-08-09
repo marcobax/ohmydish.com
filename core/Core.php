@@ -48,11 +48,23 @@ class Core
      * @param string $relative_path
      * @param bool $with_domain
      *
-     * @return mixed|string
+     * @return string
      */
-    public static function asset($relative_path = '', $with_domain = true)
+    public static function asset(string $relative_path = '', bool $with_domain = true): string
     {
-        return self::url(ASSETS_DIR .'/' . $relative_path, $with_domain);
+        $url = self::url(ASSETS_DIR .'/' . $relative_path, $with_domain);
+
+        /**
+         * Check for double slashes.
+         */
+        if (str_contains($url, '//')) {
+            /**
+             * Replace double slashes, but ignore http:// and https://
+             */
+            $url = preg_replace('/([^:])(\/{2,})/', '$1/', $url);
+        }
+
+        return $url;
     }
 
     /**

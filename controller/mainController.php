@@ -27,6 +27,7 @@ class mainController extends Controller
             'force_page_title'     => true,
             'meta_description'     => 'Find more than ' . $count . '+ delicious and amazing recipes for each occasion. Cook an amazing lunch, quick meal, snacks or homemade pies.',
             'page_canonical'       => Core::url('/'),
+            'dutch_url'            => 'https://ohmydish.nl',
             'hide_top_search'      => true,
             //'featured_recipe'      => $this->recipe_model->get(1033), // Rocky road pie
 	    'latest_recipes'       => $this->recipe_model->getRecords(['status' => 'publish'],['published','desc'],[0,9]),

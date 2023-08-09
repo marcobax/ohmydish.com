@@ -32,6 +32,7 @@ class questionController extends Controller
             'page_title'       => 'Cooking questions',
             'meta_description' => 'Here you will find answers to cooking questions. We also explain cooking techniques, tips and tricks.',
             'page_canonical'   => Core::url('cooking-questions'),
+            'dutch_url'        => 'https://ohmydish.nl/vraag-en-antwoord',
             'questions'        => $this->question_model->getRecords($where, ['id','desc'], $this->getPagination()),
             'pagination'       => $this->getPagination()
         ]);

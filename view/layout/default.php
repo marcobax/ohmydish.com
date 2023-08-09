@@ -87,10 +87,17 @@
                 var ml_account = ml('accounts', '2774500', 'r3i5b6n4t3', 'load');
             </script>
         <?php endif; ?>
-        <?php if((isset($english_url) && strlen($english_url)) && isset($dutch_url) && strlen($dutch_url)): ?>
-            <link rel="alternate" href="<?php echo $english_url; ?>" hreflang="x-default"/>
-            <link rel="alternate" href="<?php echo $english_url; ?>" hreflang="en"/>
-            <link rel="alternate" href="<?php echo $dutch_url; ?>" hreflang="nl"/>
+        <link rel="alternate" href="<?php echo Core::url('/'); ?>" hreflang="x-default" />
+        <?php if(isset($page_canonical) && ((isset($dutch_url) && strlen($dutch_url)) || (isset($french_url) && strlen($french_url)))): ?>
+            <?php if (strlen($page_canonical)) : ?>
+                <link rel="alternate" href="<?php echo $page_canonical; ?>" hreflang="en" />
+            <?php endif; ?>
+            <?php if (isset($dutch_url) && strlen($dutch_url)) : ?>
+                <link rel="alternate" href="<?php echo $dutch_url; ?>" hreflang="nl" />
+            <?php endif; ?>
+            <?php if ((isset($french_url) && strlen($french_url))) : ?>
+                <link rel="alternate" href="<?php echo $french_url; ?>" hreflang="fr" />
+            <?php endif; ?>
         <?php endif; ?>
     </head>
     <body style="font-family: sans-serif; font-size: 20px;" data-login-url="<?php echo Core::url('login'); ?>" data-search-url="<?php echo Core::url('search/xhr_suggest'); ?>">
@@ -137,7 +144,7 @@
                 <div class="collapse navbar-collapse justify-content-between align-items-center w-100" id="navbarNavDropdown">
                     <ul class="navbar-nav mx-auto text-center">
                         <li class="nav-item <?php echo $_request->isCurrentController('main')?'active text-green':''; ?>">
-                            <a class="nav-link text-dark" href="<?php echo Core::url('/'); ?>" aria-label="Navigeer naar de homepagina">Home <span class="sr-only">(huidig)</span></a>
+                            <a class="nav-link text-dark" href="<?php echo Core::url('/'); ?>" aria-label="Navigate to the homepage">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item <?php echo $_request->isCurrentController('recipe')?'active text-green':''; ?>">
                             <a class="nav-link text-dark" href="<?php echo Core::url('recipe-index'); ?>">Recipe index</a>

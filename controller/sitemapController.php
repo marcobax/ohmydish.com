@@ -145,7 +145,9 @@ class sitemapController extends Controller
     {
         header('Content-Type: application/xml; charset=utf-8');
 
-        $where   = [];
+        $where   = [
+            'slug' => 'NOT NULL'
+        ];
         $orderby = ['id','desc'];
 
         $tag_model = new TagModel();

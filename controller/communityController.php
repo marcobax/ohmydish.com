@@ -32,7 +32,7 @@ class communityController extends Controller
 
         $this->set([
             'page_title'       => 'Community',
-            'meta_description' => 'Overzicht van alle community items',
+            'meta_description' => 'Overview of all community items',
             'page_canonical'   => Core::url('community/overzicht'),
         ]);
 
@@ -750,7 +750,7 @@ class communityController extends Controller
      * @param bool|int $user_id
      *
      */
-    public function collection(string $unique_id, $user_id = false)
+    public function collection(string $unique_id, bool|int $user_id = false)
     {
         $default_url = Core::url('community/saved-recipes');
 
@@ -794,10 +794,15 @@ class communityController extends Controller
             ]);
         }
 
+        $pageCanonical = Core::url('community/collection/' . $collection['unique_id'] . '#' . CoreHelper::slugify($collection['name']));
+        if ($user_id) {
+            $pageCanonical = Core::url('community/collection/favourites/' . $user_id . '#' . CoreHelper::slugify($collection['name']));
+        }
+
         $this->set([
             'page_title'       => 'Collection: ' . ucfirst($collection['name']),
             'meta_description' => 'Saved recipes from the ' . ucfirst($collection['name']) . ' collection',
-            'page_canonical'   => Core::url('community/collection/' . $collection['unique_id'] . '#' . CoreHelper::slugify($collection['name'])),
+            'page_canonical'   => $pageCanonical,
             'collection'       => $collection,
             'user'             => $user,
             'saved_recipes'    => $this->saved_recipe_model->getRecords($where, ['id','desc'], $this->getPagination()),

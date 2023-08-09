@@ -28,7 +28,7 @@
 <?php endif; ?>
 <div class="container">
     <div class="row">
-        <div class="col-12 col-md-8">
+        <div class="col-12">
             <hr class="d-print-none">
             <p class="text-center d-none d-md-block d-print-none">
                 <a href="#" onclick="window.print(); return false;" class="btn btn-outline-success mb-1">Print blog</a>
@@ -60,7 +60,7 @@
             </p>
             <hr class="d-print-none">
         </div>
-        <div class="col-12 col-md-4 d-print-none">
+        <div class="col-12 d-print-none">
             <hr>
             <div class="adspace text-center d-print-none">
                 <?php require(ROOT . '/view/_advertenties/300x250_1.php'); ?>

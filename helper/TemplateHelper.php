@@ -348,7 +348,15 @@ class TemplateHelper
                     'url' => Core::asset('img/Ohmydish_logo.png'),
                     'width' => 263,
                     'height' => 70,
-                    'caption' => 'Ohmydish'
+                    'caption' => 'Ohmydish',
+                    'creditText' => 'Ohmydish',
+                    "creator" => [
+                        "@type" => "Organization",
+                        "name"  => "Ohmydish",
+                    ],
+                    'copyrightNotice' => "Ohmydish",
+                    'acquireLicensePage' => Core::url('/'),
+                    'license' => 'https://creativecommons.org/licenses/by-nc-nd/4.0/',
                 ],
                 'sameAs' => [
                     'https://www.instagram.com/ohmydish/',
