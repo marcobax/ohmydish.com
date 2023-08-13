@@ -1,40 +1,45 @@
 <div class="container-fluid pl-5 pr-5">
-    <?php if(false): ?>
+    <div class="col-12 text-center mt-2">
+        <a href="<?php echo Core::url('admin?year=' . $previous_week->format('Y') . '&week=' . $previous_week->format('W')); ?>" class="btn btn-secondary btn-lg">&larr; week <?php echo intval($previous_week->format('W')); ?></a>
+        <a href="<?php echo Core::url('admin?year=' . $dt->format('Y') . '&week=' . $dt->format('W')); ?>" class="btn btn-success btn-lg">week <?php echo intval($dt->format('W')); ?></a>
+        <?php if ($dt->format('W') < date('W')): ?>
+            <a href="<?php echo Core::url('admin?year=' . $next_week->format('Y') . '&week=' . $next_week->format('W')); ?>" class="btn btn-secondary btn-lg">week <?php echo intval($next_week->format('W')); ?> &rarr;</a>
+        <?php endif; ?>
+    </div>
     <div class="row">
         <div class="col-12">
-            <canvas id="myChart" width="400" height="50"></canvas>
+            <canvas id="myChart" width="400" height="80"></canvas>
             <script>
                 new Chart(document.getElementById("myChart"),
                     {
                         "type": "bar",
                         "data": {
-                            "labels": ["Maandag 21-12","Dinsdag 22-12","Woensdag 23-12","Donderdag 24-12","Vrijdag 25-12","Zaterdag 26-12","Zondag 27-12"],
-                            "datasets": [{
-                                "label": "Statistieken",
-                                "data": [65,59,80,81,56,55,40],
-                                "fill": false,
-                                "backgroundColor": [
-                                    "rgba(255, 99, 132, 0.2)",
-                                    "rgba(255, 159, 64, 0.2)",
-                                    "rgba(255, 205, 86, 0.2)",
-                                    "rgba(75, 192, 192, 0.2)",
-                                    "rgba(54, 162, 235, 0.2)",
-                                    "rgba(153, 102, 255, 0.2)",
-                                    "rgba(201, 203, 207, 0.2)"
-                                ],
-                                "borderColor": [
-                                    "rgb(255, 99, 132)",
-                                    "rgb(255, 159, 64)",
-                                    "rgb(255, 205, 86)",
-                                    "rgb(75, 192, 192)",
-                                    "rgb(54, 162, 235)",
-                                    "rgb(153, 102, 255)",
-                                    "rgb(201, 203, 207)"
-                                ],
-                                "borderWidth":1
-                            }]
+                            "labels": <?php echo json_encode(array_values($labels)); ?>,
+                            "datasets": [
+                                <?php foreach($datasets as $dataset): ?>
+                                {
+                                    "label": "<?php echo $dataset['label']; ?>",
+                                    "data": <?php echo json_encode(array_values($dataset['data'])); ?>,
+                                    "fill": false,
+                                    "backgroundColor": [
+                                        <?php foreach($dataset['data'] as $data): ?>
+                                        "<?php echo $dataset['color']; ?>",
+                                        <?php endforeach; ?>
+                                    ],
+                                    "borderColor": [
+                                        <?php foreach($dataset['data'] as $data): ?>
+                                        "<?php echo $dataset['color']; ?>",
+                                        <?php endforeach; ?>
+                                    ],
+                                    "borderWidth":<?php echo $dataset['borderWidth']; ?>
+                                },
+                                <?php endforeach; ?>
+                            ],
                         },
                         "options": {
+                            "animation": {
+                                duration: 0
+                            },
                             "scales": {
                                 "yAxes": [
                                     {
@@ -46,11 +51,10 @@
                             }
                         }
                     }
-                    );
+                );
             </script>
         </div>
     </div>
-    <?php endif; ?>
     <div class="row">
         <div class="col-12 col-md-6 mb-4">
             <h3 class="with-stripe">Recent search queries</h3>

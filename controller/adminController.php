@@ -50,8 +50,144 @@ class adminController extends Controller
         $latest_search_terms = $search_model->getRecords([],$this->getSortOrder('id', 'desc'),[0, $this->getResultsPerPage()]);
 
         $latest_saved_recipes = $saved_recipe_model->getRecords(['deleted' => 0],['id','desc'], [0,$this->getResultsPerPage()]);
+        $year = (int) date('Y');
+        $week = (int) date('W');
+
+        $query = $this->request->getQuery();
+
+        if (is_array($query) && count($query)) {
+            if (array_key_exists('year', $query)) {
+                $year = (int) trim($query['year']);
+            }
+
+            if (array_key_exists('week', $query)) {
+                $week = (int) trim($query['week']);
+            }
+        }
+
+        $dt = new DateTime('last monday');
+        $dt->setISODate($year, $week);
+
+        $previous_week = clone $dt;
+        $previous_week->modify('-1 week');
+        $next_week = clone $dt;
+        $next_week->modify('+1 week');
+
+        $labels   = [];
+        $datasets = [
+            'searches' => [
+                'label'       => 'Search queries',
+                'data'        => [],
+                'color'       => '#339966',
+                'borderWidth' => 1
+            ],
+            'recipe_votes' => [
+                'label'       => 'Recipe votes',
+                'data'        => [],
+                'color'       => 'darkblue',
+                'borderWidth' => 1
+            ],
+            'saved_recipes' => [
+                'label'       => 'Saved recipes',
+                'data'        => [],
+                'color'       => '#336699',
+                'borderWidth' => 1
+            ],
+            'logged_in' => [
+                'label'       => 'Times logged in',
+                'data'        => [],
+                'color'       => 'darkgrey',
+                'borderWidth' => 1
+            ],
+            'search_blocked' => [
+                'label'       => 'Blacklist search query',
+                'data'        => [],
+                'color'       => 'darkred',
+                'borderWidth' => 1
+            ],
+            'new_user' => [
+                'label'       => 'New profile',
+                'data'        => [],
+                'color'       => 'darkpurple',
+                'borderWidth' => 1
+            ],
+        ];
+
+        for ($i=0;$i<7;$i++) {
+            if ($i) {
+                $dt->modify('+1 day');
+            }
+
+            $labels[$dt->format('Y-m-d')] = $dt->format('d-m-Y');
+
+            $searches = 0;
+            $admin_stats_searches = $this->admin_stats_model->getRecords([
+                'identifier' => 'searches',
+                'section'    => $dt->format('Y-m-d')
+            ], [], [0,1]);
+            if (is_array($admin_stats_searches) && count($admin_stats_searches)) {
+                $searches = (int) $admin_stats_searches[0]['value'];
+            }
+
+            $recipe_votes = 0;
+            $admin_stats_searches = $this->admin_stats_model->getRecords([
+                'identifier' => 'new-rating',
+                'section'    => $dt->format('Y-m-d')
+            ], [], [0,1]);
+            if (is_array($admin_stats_searches) && count($admin_stats_searches)) {
+                $recipe_votes = (int) $admin_stats_searches[0]['value'];
+            }
+
+            $searches_blocked = 0;
+            $admin_stats_searches = $this->admin_stats_model->getRecords([
+                'identifier' => 'search-blocked',
+                'section'    => $dt->format('Y-m-d')
+            ], [], [0,1]);
+            if (is_array($admin_stats_searches) && count($admin_stats_searches)) {
+                $searches_blocked = (int) $admin_stats_searches[0]['value'];
+            }
+
+            $saved_recipes = 0;
+            $admin_stats_searches = $this->admin_stats_model->getRecords([
+                'identifier' => 'saved-recipe',
+                'section'    => $dt->format('Y-m-d')
+            ], [], [0,1]);
+            if (is_array($admin_stats_searches) && count($admin_stats_searches)) {
+                $saved_recipes = (int) $admin_stats_searches[0]['value'];
+            }
+
+            $new_users = 0;
+            $admin_stats_searches = $this->admin_stats_model->getRecords([
+                'identifier' => 'new-user',
+                'section'    => $dt->format('Y-m-d')
+            ], [], [0,1]);
+            if (is_array($admin_stats_searches) && count($admin_stats_searches)) {
+                $new_users = (int) $admin_stats_searches[0]['value'];
+            }
+
+            $logged_in = 0;
+            $admin_stats_searches = $this->admin_stats_model->getRecords([
+                'identifier' => 'login',
+                'section'    => $dt->format('Y-m-d')
+            ], [], [0,1]);
+            if (is_array($admin_stats_searches) && count($admin_stats_searches)) {
+                $logged_in = (int) $admin_stats_searches[0]['value'];
+            }
+
+            $datasets['searches']['data'][] = $searches;
+            $datasets['recipe_votes']['data'][] = $recipe_votes;
+            $datasets['search_blocked']['data'][] = $searches_blocked;
+            $datasets['saved_recipes']['data'][] = $saved_recipes;
+            $datasets['new_user']['data'][] = $new_users;
+            $datasets['logged_in']['data'][] = $logged_in;
+        }
 
         $this->set([
+            'previous_week'        => $previous_week,
+            'next_week'            => $next_week,
+            'dt'                   => $dt,
+            'labels'               => $labels,
+            'datasets'             => $datasets,
             'page_title'           => 'Admin | dashboard',
             'latest_search_terms'  => $latest_search_terms,
             'latest_saved_recipes' => $latest_saved_recipes
