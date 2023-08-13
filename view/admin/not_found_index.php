@@ -6,7 +6,7 @@
             <table class="table table-sm m-0">
                 <thead>
                 <tr>
-                    <th><a href="<?php echo $this->request->filterURI('admin/not_found_index', 'created'); ?>">Aangemaakt</a></th>
+                    <th><a href="<?php echo $this->request->filterURI('admin/not_found_index', 'created'); ?>">Created</a></th>
                     <th>URL</th>
                 </tr>
                 </thead>

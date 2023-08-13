@@ -8,7 +8,7 @@
                     <input type="text" name="name" id="name" value="<?php echo (isset($query['name']))?$query['name']:''; ?>" class="form-control" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-block btn-success" value="Filteren">
+                    <input type="submit" class="btn btn-block btn-success" value="Filter">
                     <a href="<?php echo Core::url('admin/collection_index'); ?>" class="btn btn-block btn-link">Reset</a>
                 </div>
             </form>
@@ -25,7 +25,7 @@
                     <th><a href="<?php echo $this->request->filterURI('admin/collection_index', 'deleted'); ?>">Deleted</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/collection_index', 'created'); ?>">Created</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/collection_index', 'updated'); ?>">Updated</a></th>
-                    <th>Acties</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>

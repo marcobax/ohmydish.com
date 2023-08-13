@@ -122,6 +122,13 @@ class Controller
             if (is_array($new_recipe_rating) && count($new_recipe_rating) && array_key_exists(0, $new_recipe_rating)) {
                 $this->set(['new_recipe_rating' => $new_recipe_rating[0]['value']]);
             }
+            $new_blog_rating = $this->admin_stats_model->getRecords([
+                'identifier' => 'blog_rating',
+                'section' => 'new'
+            ]);
+            if (is_array($new_blog_rating) && count($new_blog_rating) && array_key_exists(0, $new_blog_rating)) {
+                $this->set(['new_blog_rating' => $new_blog_rating[0]['value']]);
+            }
 
             $this->set([
                 'admin_recipe_count'           => number_format($this->recipe_model->getCount(), 0, ',', '.'),

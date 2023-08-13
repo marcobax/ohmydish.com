@@ -4,15 +4,15 @@
         <div class="col-2">
             <form action="<?php echo Core::url('admin/blacklist_index'); ?>" method="get" onsubmit="window.onbeforeunload = null;">
                 <div class="form-group">
-                    <label for="ip_address">IP adres</label>
+                    <label for="ip_address">IP address</label>
                     <input type="text" name="ip_address" id="ip_address" value="<?php echo (isset($query['ip_address']))?$query['ip_address']:''; ?>" class="form-control" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="reason">Reden</label>
+                    <label for="reason">Reason</label>
                     <input type="text" name="reason" id="reason" value="<?php echo (isset($query['reason']))?$query['reason']:''; ?>" class="form-control" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-block btn-success" value="Filteren">
+                    <input type="submit" class="btn btn-block btn-success" value="Filter">
                     <a href="<?php echo Core::url('admin/blacklist_index'); ?>" class="btn btn-block btn-link">Reset</a>
                 </div>
             </form>
@@ -22,9 +22,9 @@
             <table class="table table-sm table-hover">
                 <tr>
                     <th><a href="<?php echo $this->request->filterURI('admin/blacklist_index', 'ip_address'); ?>">IP adres</a></th>
-                    <th>Aangemaakt</th>
-                    <th>Reden</th>
-                    <th>Acties</th>
+                    <th>Created</th>
+                    <th>Reason</th>
+                    <th>Actions</th>
                 </tr>
                 <?php foreach($blacklist as $item): ?>
                     <tr>

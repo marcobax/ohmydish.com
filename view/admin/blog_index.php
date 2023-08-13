@@ -40,7 +40,7 @@
                     <th><a href="<?php echo $this->request->filterURI('admin/blog_index', 'title'); ?>">Title</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/blog_index', 'status'); ?>">Status</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/blog_index', 'created'); ?>">Created</a></th>
-                    <th>Acties</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>

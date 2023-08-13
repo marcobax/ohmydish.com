@@ -8,7 +8,7 @@
                     <input type="text" name="name" id="name" value="<?php echo (isset($query['name']))?$query['name']:''; ?>" class="form-control" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-block btn-success" value="Filteren">
+                    <input type="submit" class="btn btn-block btn-success" value="Filter">
                 </div>
             </form>
         </div>
@@ -20,7 +20,7 @@
                     <th><a href="<?php echo $this->request->filterURI('admin/tag_index', 'id'); ?>">ID</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/tag_index', 'name'); ?>">Naam</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/tag_index', 'description'); ?>">Omschrijving</a></th>
-                    <th>Acties</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>

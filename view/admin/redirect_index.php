@@ -12,7 +12,7 @@
                     <input type="text" name="destination_url" id="destination_url" value="<?php echo (isset($query['request_url']))?$query['destination_url']:''; ?>" class="form-control" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-block btn-success" value="Filteren">
+                    <input type="submit" class="btn btn-block btn-success" value="Filter">
                     <a href="<?php echo Core::url('admin/redirect_index'); ?>" class="btn btn-block btn-link">Reset</a>
                 </div>
             </form>
@@ -23,7 +23,7 @@
                 <tr>
                     <th><a href="<?php echo $this->request->filterURI('admin/redirect_index', 'request_url'); ?>">Request URL</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/redirect_index', 'destination_url'); ?>">Destination URL</a></th>
-                    <th>Acties</th>
+                    <th>Actions</th>
                 </tr>
                 <?php foreach($redirects as $redirect): ?>
                     <tr>

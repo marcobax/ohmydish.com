@@ -335,7 +335,7 @@
                             </p>
                         </div>
                         <div class="col-12 col-md-3 text-right">
-                            <img width="550" height="550" src="<?php echo Core::url('uploads/2021/Veronique-2021-vierkant.jpg'); ?>" class="img-fluid rounded-top" alt="Veronique from Ohmydish" data-pin-nopin="true" loading="lazy">
+                            <img width="550" height="550" src="<?php echo Core::url('uploads/2023/veronique-2023-square.jpg'); ?>" class="img-fluid rounded-top" alt="Veronique from Ohmydish" data-pin-nopin="true" loading="lazy">
                         </div>
                     </div>
                 </div>

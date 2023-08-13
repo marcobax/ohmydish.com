@@ -32,7 +32,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-block btn-success" value="Filteren">
+                    <input type="submit" class="btn btn-block btn-success" value="Filter">
                     <a href="<?php echo Core::url('admin/comment_index'); ?>" class="btn btn-block btn-link">Reset</a>
                 </div>
             </form>

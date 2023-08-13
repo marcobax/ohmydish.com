@@ -47,7 +47,7 @@
                     <th><a href="<?php echo $this->request->filterURI('admin/search_index', 'page'); ?>">Page</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/search_index', 'suggestion'); ?>">Suggestion</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/search_index', 'autosuggest'); ?>">Auto suggestion</a></th>
-                    <th>Actie</th>
+                    <th>Actions</th>
                 </tr>
                 <?php foreach($latest_search_terms as $latest_search_term): ?>
                     <tr>

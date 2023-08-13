@@ -54,7 +54,7 @@
                 <div class="form-group">
                     <label for="content">Content</label>
                     <textarea name="content" id="content" cols="30" rows="20" class="htmleditor form-control"><?php echo htmlentities($question['content']); ?></textarea>
-                    <div class="mt-2 p-2 rounded" style="border: 1px solid lightgrey; border-left: 6px solid #339966;">Aantal woorden: <span id="total-words">0</span>, aantal karakters: <span id="total-characters">0</span></div>
+                    <div class="mt-2 p-2 rounded" style="border: 1px solid lightgrey; border-left: 6px solid #339966;">Total words: <span id="total-words">0</span>, total characters: <span id="total-characters">0</span></div>
                 </div>
                 <div class="form-group">
                     <label for="featured_image">Featured image</label>

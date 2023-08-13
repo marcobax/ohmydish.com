@@ -50,7 +50,7 @@
                         <ul>
                             <?php foreach($recent_pages as $recent_page): ?>
                                 <li class="text-center">
-                                    <a href="<?php echo Core::url($recent_page['slug']); ?>"><img src="<?php echo TemplateHelper::getFeaturedImage($recent_page); ?>" alt="" class="img-fluid rounded-top"></a>
+                                    <a href="<?php echo Core::url($recent_page['slug']); ?>"><img src="<?php echo TemplateHelper::getFeaturedImage($recent_page); ?>" alt="<?php echo $recent_page['title']; ?>" class="img-fluid rounded-top"></a>
                                     <a href="<?php echo Core::url($recent_page['slug']); ?>"><?php echo $recent_page['title']; ?></a>
                                     <hr>
                                 </li>

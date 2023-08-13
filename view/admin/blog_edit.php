@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="title">Titel</label>
+                            <label for="title">Title</label>
                             <input type="text" name="title" id="title" value="<?php echo trim(htmlentities($blog['title'])); ?>" class="form-control" autocomplete="off">
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                 <div class="form-group">
                     <label for="content">Content</label>
                     <textarea name="content" id="content" cols="30" rows="20" class="htmleditor form-control"><?php echo htmlentities($blog['content']); ?></textarea>
-                    <div class="mt-2 p-2 rounded" style="border: 1px solid lightgrey; border-left: 6px solid #339966;">Aantal woorden: <span id="total-words">0</span>, aantal karakters: <span id="total-characters">0</span></div>
+                    <div class="mt-2 p-2 rounded" style="border: 1px solid lightgrey; border-left: 6px solid #339966;">Total words: <span id="total-words">0</span>, total characters: <span id="total-characters">0</span></div>
                 </div>
                 <div class="form-group">
                     <label for="faq">FAQ</label>

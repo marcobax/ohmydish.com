@@ -35,6 +35,8 @@
                     <a class="dropdown-item" href="<?php echo Core::url('admin/blog_index?status=draft') ?>">Concepts (<?php echo $admin_blog_draft_count; ?>)</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?php echo Core::url('admin/blog_edit/new') ?>">New</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="<?php echo Core::url('admin/blog_rating_index') ?>">Blog votes <?php if(isset($new_blog_rating) && (int) $new_blog_rating): ?><span class="text-success"> +<?php echo $new_blog_rating; ?></span><?php endif; ?></a>
                 </div>
             </li>
             <li class="h6 mb-0 nav-item dropdown <?php echo $_request->isCurrentAction(['page_index','page_edit'])?'active text-green':''; ?>">

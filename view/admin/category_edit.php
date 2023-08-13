@@ -17,17 +17,17 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="title">Titel</label>
+                    <label for="title">Title</label>
                     <input type="text" name="title" id="title" value="<?php echo trim(htmlentities($category['title'])); ?>" class="form-control" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label for="title">SEO titel <span class="text-muted">(optioneel)</span></label>
+                    <label for="title">SEO title <span class="text-muted">(optional)</span></label>
                     <input type="text" name="seo_title" id="seo_title" value="<?php echo trim(htmlentities($category['seo_title'])); ?>" class="form-control" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
                     <textarea name="content" id="content" cols="30" rows="20" class="htmleditor form-control"><?php echo htmlentities($category['content']); ?></textarea>
-                    <div class="mt-2 p-2 rounded" style="border: 1px solid lightgrey; border-left: 6px solid #339966;">Aantal woorden: <span id="total-words">0</span>, aantal karakters: <span id="total-characters">0</span></div>
+                    <div class="mt-2 p-2 rounded" style="border: 1px solid lightgrey; border-left: 6px solid #339966;">Total words: <span id="total-words">0</span>, total characters: <span id="total-characters">0</span></div>
                 </div>
                 <div class="form-group">
                     <label for="excerpt">Type</label>
@@ -39,7 +39,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="featured_image">Uitgelichte foto</label>
+                    <label for="featured_image">Featured image</label>
                     <div class="row">
                         <div class="col-2">
                             <img src="<?php echo $category['featured_image']; ?>" class="img-fluid" alt="">

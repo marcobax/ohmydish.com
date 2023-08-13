@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
-                            <label for="title">Titel</label>
+                            <label for="title">Title</label>
                             <input type="text" name="title" id="title" value="<?php echo trim(htmlentities($page['title'])); ?>" class="form-control" autocomplete="off">
                         </div>
                     </div>
@@ -54,10 +54,10 @@
                 <div class="form-group">
                     <label for="content">Content</label>
                     <textarea name="content" id="content" cols="30" rows="20" class="htmleditor form-control"><?php echo htmlentities($page['content']); ?></textarea>
-                    <div class="mt-2 p-2 rounded" style="border: 1px solid lightgrey; border-left: 6px solid #339966;">Aantal woorden: <span id="total-words">0</span>, aantal karakters: <span id="total-characters">0</span></div>
+                    <div class="mt-2 p-2 rounded" style="border: 1px solid lightgrey; border-left: 6px solid #339966;">Total words: <span id="total-words">0</span>, total characters: <span id="total-characters">0</span></div>
                 </div>
                 <div class="form-group">
-                    <label for="featured_image">Uitgelichte foto</label>
+                    <label for="featured_image">Featured image</label>
                     <div class="row">
                         <div class="col-2">
                             <img src="<?php echo $page['featured_image']; ?>" class="img-fluid" alt="">
@@ -70,7 +70,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group">
-                            <label for="thumbnail_image">Vierkante foto</label>
+                            <label for="thumbnail_image">Thumbnail image</label>
                             <div class="row">
                                 <div class="col-2">
                                     <img src="<?php echo $page['thumbnail_image']; ?>" class="img-fluid" alt="">

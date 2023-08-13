@@ -9,7 +9,7 @@
                     <input type="text" name="email" id="email" value="<?php echo (isset($query['email']))?$query['email']:''; ?>" class="form-control" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-block btn-success" value="Filteren">
+                    <input type="submit" class="btn btn-block btn-success" value="Filter">
                 </div>
             </form>
         </div>
@@ -24,7 +24,7 @@
                     <th><a href="<?php echo $this->request->filterURI('admin/user_index', 'newsletter'); ?>">Newsletter</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/user_index', 'fb_access_token'); ?>">Facebook account</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/user_index', 'last_logged_in'); ?>">Last logged in</a></th>
-                    <th>Acties</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>

@@ -4,7 +4,7 @@
         <div class="col-2">
             <form action="<?php echo Core::url('admin/page_index'); ?>" method="get" onsubmit="window.onbeforeunload = null;">
                 <div class="form-group">
-                    <label for="name">Titel</label>
+                    <label for="name">Title</label>
                     <input type="text" name="title" id="title" value="<?php echo (isset($query['title']))?$query['title']:''; ?>" class="form-control" autocomplete="off">
                 </div>
                 <div class="form-group">
@@ -21,7 +21,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-block btn-success" value="Filteren">
+                    <input type="submit" class="btn btn-block btn-success" value="Filter">
                     <a href="<?php echo Core::url('admin/page_index'); ?>" class="btn btn-block btn-link">Reset</a>
                 </div>
             </form>
@@ -32,10 +32,10 @@
                 <thead>
                 <tr>
                     <th><a href="<?php echo $this->request->filterURI('admin/page_index', 'id'); ?>">ID</a></th>
-                    <th><a href="<?php echo $this->request->filterURI('admin/page_index', 'title'); ?>">Titel</a></th>
+                    <th><a href="<?php echo $this->request->filterURI('admin/page_index', 'title'); ?>">Title</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/page_index', 'status'); ?>">Status</a></th>
-                    <th><a href="<?php echo $this->request->filterURI('admin/page_index', 'created'); ?>">Aangemaakt</a></th>
-                    <th>Acties</th>
+                    <th><a href="<?php echo $this->request->filterURI('admin/page_index', 'created'); ?>">Created</a></th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>

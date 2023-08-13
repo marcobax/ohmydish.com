@@ -229,12 +229,45 @@ class adminController extends Controller
 
         $this->set([
             'page_title' => 'Admin | Recipe votes',
-            'ratings'    => $this->rating_model->getRecords($where,$this->getSortOrder('id', 'desc'),$this->getPagination()),
+            'ratings'    => $this->rating_model->getRecords($where, $this->getSortOrder('id', 'desc'), $this->getPagination()),
             'pagination' => $this->getPagination(),
             'query'      => $query
         ]);
 
         $this->render('recipe_rating_index');
+    }
+
+    public function blog_rating_index()
+    {
+        $where = [
+            'page_type' => 'blog'
+        ];
+
+        $query = $this->request->getQuery();
+        if (is_array($query) && count($query)) {
+            if (array_key_exists('ip_address', $query)) {
+                $where['ip_address'] = '%' . trim($query['ip_address']) . '%';
+            }
+            if (array_key_exists('rating', $query) && strlen($query['rating'])) {
+                $where['rating'] = $query['rating'];
+            }
+            if (array_key_exists('original_rating', $query) && strlen($query['original_rating'])) {
+                $where['original_rating'] = $query['original_rating'];
+            }
+        }
+
+        $this->admin_stats_model->clear('blog_rating', 'new');
+
+        $this->setTotalResults($this->rating_model->getRecords($where,[],[],true));
+
+        $this->set([
+            'page_title' => 'Admin | Blog votes',
+            'ratings'    => $this->rating_model->getRecords($where,$this->getSortOrder('id', 'desc'),$this->getPagination()),
+            'pagination' => $this->getPagination(),
+            'query'      => $query
+        ]);
+
+        $this->render('blog_rating_index');
     }
 
     /**

@@ -18,7 +18,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-block btn-success" value="Filteren">
+                    <input type="submit" class="btn btn-block btn-success" value="Filter">
                     <a href="<?php echo Core::url('admin/contact_index'); ?>" class="btn btn-block btn-link">Reset</a>
                 </div>
             </form>
@@ -30,10 +30,10 @@
                 <tr>
                     <th><a href="<?php echo $this->request->filterURI('admin/contact_index', 'id'); ?>">ID</a></th>
                     <th>Content</th>
-                    <th><a href="<?php echo $this->request->filterURI('admin/contact_index', 'created'); ?>">Aangemaakt</a></th>
-                    <th><a href="<?php echo $this->request->filterURI('admin/contact_index', 'name'); ?>">Naam</a></th>
+                    <th><a href="<?php echo $this->request->filterURI('admin/contact_index', 'created'); ?>">Created</a></th>
+                    <th><a href="<?php echo $this->request->filterURI('admin/contact_index', 'name'); ?>">Name</a></th>
                     <th><a href="<?php echo $this->request->filterURI('admin/contact_index', 'email'); ?>">Email</a></th>
-                    <th>Acties</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
