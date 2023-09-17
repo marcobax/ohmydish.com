@@ -136,7 +136,8 @@ class ratingController extends Controller
 
                         // Cache counts for quick lookup.
                         $model->update($entity['id'], [
-                            'updated'        => date('Y-m-d H:i:s'),
+                            // https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+                            // 'updated'        => date('Y-m-d H:i:s'),
                             'total_votes'    => $total_rating['total_votes'],
                             'average_rating' => $total_rating['average_rating'],
                             'rating_label'   => $label
