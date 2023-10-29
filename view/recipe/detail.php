@@ -170,6 +170,27 @@
         </figure>
     </div>
 </div>
+
+<div class="container mb-md-2">
+    <div class="d-block d-md-flex p-2 p-md-4 rounded-lg" style="background: #FEEECC;">
+        <div class="text-center flex-md-shrink-1 mb-2 mb-md-0">
+            <img width="550" height="550" src="<?php echo Core::url('uploads/2023/veronique-2023-vierkant.jpg'); ?>" class="img-fluid rounded-top" style="max-height: 150px; max-width: 150px;" alt="Veronique van Ohmydish" data-pin-nopin="true" loading="lazy">
+        </div>
+        <div class="flex-md-fill px-4">
+            <p class="h3 text-dark">Made by <a class="text-dark" href="<?php echo Core::url('about-us') ?>">Véronique</a>
+
+            </p>
+            <p class="h5">
+                <strong>Published at <?php echo date('Y-m-d', strtotime($recipe['published'])); ?>, this recipe is for <?php echo Template::displayYield($recipe['yield']); ?> and takes <?php echo Template::displayTimeToDescription($recipe['displaytime']); ?>.</strong>
+            </p>
+            <p>Founder of Ohmydish (established 2014). Would happily spend her entire day in the kitchen. Previously worked in the hospitality industry as an independent chef and is ready and willing to help you gain confidence in the kitchen. With her easy-to-follow recipes, helpful tips, and cooking knowledge, you will be making the very tastiest dishes yourself in no time! Véronique's recipes are intended for everyone, from beginners to advanced home cooks.</p>
+            <?php if ($recipe['published'] < $recipe['updated']): ?>
+                <p class="h6 mb-0 text-right text-muted">Updated at: <?php echo date('d-m-Y', strtotime($recipe['updated'])); ?></p>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
 <div class="row m-0 mb-2 d-md-none">
     <div class="col-12 text-center pt-2">
         <strong class="mr-2"><span class="nowrap"><span class="oi oi-clock h6" title="Cooking time" aria-hidden="true"></span> <?php echo Template::displayTimeToDescription($recipe['displaytime']); ?></span></strong>
