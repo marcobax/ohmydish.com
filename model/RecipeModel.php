@@ -186,25 +186,26 @@ class RecipeModel extends Model
                     $sd['keywords'] = implode(',', $keywords);
                 }
                 // https://developers.google.com/search/docs/data-types/recipe#recipeyield
-                $sd['recipeYield'] = (int) $recipe['yield'];
+                $sd['recipeYield'] = intval($recipe['yield']) . ' persons';
+
                 if (is_array($main_category) && count($main_category)) {
                     $sd['recipeCategory'] = $main_category['title'];
                 }
 
                 $sd['recipeIngredient'] = json_decode($recipe['seo_ingredients']);
 
-                $recipeInstructions = [];
-
+                $itemListElement = [];
                 if (strlen($recipe['seo_kitchen_equipments'])) {
-                    $recipeInstructions[] = [
-                        '@type' => 'HowToStep',
-                        'name' => 'Step 1',
+                    $itemListElement[] = [
+                        '@type'    => 'HowToStep',
+                        'name'     => 'Step 1',
+                        'position' => 1,
                         'text' => 'You will need the following cooking equipment:: ' . implode(', ', json_decode($recipe['seo_kitchen_equipments'])),
                         'url' => Core::url('recipe/' . $recipe['slug']) . '#step-1',
-                        'image' => ''
                     ];
                 }
-                $recipeInstructionsCount = count($recipeInstructions);
+
+                $itemListElementCount = count($itemListElement);
 
                 // https://developers.google.com/search/docs/data-types/recipe#recipeinstructions
                 $recipe_content = $recipe['content'];
@@ -221,17 +222,24 @@ class RecipeModel extends Model
                     $exploded_content_part = trim(strip_tags($exploded_content_part));
 
                     if (strlen($exploded_content_part)) {
-                        ++$recipeInstructionsCount;
+                        ++$itemListElementCount;
 
-                        $recipeInstructions[] = [
-                            '@type' => 'HowToStep',
-                            'name'  => 'Step ' . $recipeInstructionsCount,
-                            'text'  => $exploded_content_part,
+                        $itemListElement[] = [
+                            '@type'    => 'HowToStep',
+                            'name'     => 'Step ' . $itemListElementCount,
+                            'position' => $itemListElementCount,
+                            'text'     => $exploded_content_part,
                             'url'   => Core::url('recipe/' . $recipe['slug']) . '#step-' . $recipeInstructionsCount,
-                            'image' => ''
                         ];
                     }
                 }
+
+                $recipeInstructions = [
+                    '@type'           => 'HowToSection',
+                    'name'            => 'Preparation',
+                    'position'        => 1,
+                    'itemListElement' => $itemListElement
+                ];
 
                 if (strlen($recipe['seo_ingredients']) && strlen($recipe['seo_kitchen_equipments'])) {
                     $sd['recipeInstructions'] = $recipeInstructions;

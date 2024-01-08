@@ -8,9 +8,9 @@
             <p>Publishing sponsored articles, links or a request for writing an food related article are on a payed basis. Contact us to find out what our rates are.</p>
         </div>
     </div>
+    <h2>Send your message to Ohmydish</h2>
     <form action="<?php echo Core::url('contact-us') ?>" method="post">
     <div class="card mb-4">
-        <div class="card-header">Send your message to Ohmydish</div>
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-md-6">

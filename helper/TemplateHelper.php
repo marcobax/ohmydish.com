@@ -366,7 +366,7 @@ class TemplateHelper
                 ]
             ],
             [
-                '@type' => 'Website',
+                '@type' => 'WebPage',
                 '@id' => Core::url('/') . '#website',
                 'url' => Core::url('/'),
                 'name' => 'Ohmydish',

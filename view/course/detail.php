@@ -6,11 +6,20 @@ if (is_array($query) && count($query)) {
         $show_seo_text = false;
     }
 }
+$section = match ($category['type']) {
+    'course' => 'course',
+    'kitchen' => 'kitchen',
+    'dishtype' => 'dish type',
+    'theme' => 'theme',
+    default => 'category',
+};
 ?>
 <div class="golden mb-2 shadow-sm">
     <div class="d-flex justify-content-center">
         <div style="<?php if(array_key_exists('featured_image', $category) && strlen($category['featured_image'])): ?>background: url('<?php echo TemplateHelper::getFeaturedImage($category); ?>'); background-position: center; background-size: cover; background-repeat: no-repeat;<?php else: ?>background: #333;<?php endif; ?>" class="w-100 p-4">
-            <h1 class="fancy text-white text-center m-0" style="font-size: 3em; text-shadow: 3px 3px #000;"><?php echo $category['title']; ?></h1>
+            <h1 class="fancy text-white text-center m-0 mt-4" style="font-size: 3em; text-shadow: 3px 3px #000;">
+                <?php echo ucfirst($section) . ': ' . strtolower($category['title']); ?>
+            </h1>
             <h2 class="h5 m-0 text-white text-center" style="text-shadow: 2px 2px #000;"><?php echo TemplateHelper::formatNumber($category['total_entities']); ?> recipes</h2>
         </div>
     </div>
