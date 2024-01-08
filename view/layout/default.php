@@ -299,7 +299,7 @@
                             </div>
                             <?php
                             $recipe_model = new RecipeModel();
-                            $featured_category_recipes = $recipe_model->getRecords(['find_in_set' => ['categories' => $featured_category['id']]], ['RAND()'], [0,4]);
+                            $featured_category_recipes = $recipe_model->getRecords(['find_in_set' => ['categories' => $featured_category['id']]], ['published', 'desc'], [0,4]);
                             ?>
                             <?php if (is_array($featured_category_recipes) && count($featured_category_recipes)): ?>
                                 <?php foreach($featured_category_recipes as $featured_category_recipe): ?>
