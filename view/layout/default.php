@@ -2,7 +2,24 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title><?php echo isset($page_title)?$page_title:'Recipes and dishes'; ?><?php echo (!isset($force_page_title))?' - Ohmydish':''; ?></title>
+        <?php
+        $htmlTitle = 'Recipes and dishes';
+        if (isset($page_title)) {
+            $htmlTitle = $page_title;
+        }
+
+        /**
+         * HTML page title should be between 29 and 61 characters.
+         * If "- Ohmydish" fits in the title, it will be added.
+         */
+        if (!isset($force_page_title)) {
+            $append = ' - Ohmydish';
+            if (strlen($htmlTitle) + strlen($append) < 61) {
+                $htmlTitle .= $append;
+            }
+        }
+        ?>
+        <title><?php echo $htmlTitle; ?></title>
         <?php if(!SessionHelper::hasPermission('is_admin')): ?>
             <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                         new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -33,17 +50,32 @@
         <meta property="article:tag" content="<?php echo $meta_article_tag; ?>">
         <?php endforeach; ?>
         <?php endif; ?>
-        <?php if(isset($page_title)): ?>
-        <meta property="og:title" content="<?php echo $page_title; ?>" />
-        <meta name="twitter:title" content="<?php echo $page_title; ?>">
-        <meta name="twitter:card" content="summary_large_image">
+        <?php if (isset($page_title)) : ?>
+            <meta property="og:image:alt" content="<?php echo $page_title; ?>" />
+            <meta name="twitter:image:alt" content="<?php echo $page_title; ?>">
+            <?php
+            $twitterTitle = $page_title;
+            $facebookTitle = $page_title;
+            /**
+             * Twitter card titles should be 55 characters or less.
+             */
+            if (strlen($twitterTitle) > 55) {
+                $twitterTitle = substr($twitterTitle, 0, 52) . '...';
+            }
+
+            /**
+             * Facebook titles should be 60 characters or less.
+             */
+            if (strlen($facebookTitle) > 60) {
+                $facebookTitle = substr($facebookTitle, 0, 57) . '...';
+            }
+            ?>
+            <meta property="og:title" content="<?php echo $facebookTitle; ?>" />
+            <meta name="twitter:title" content="<?php echo $twitterTitle; ?>">
+            <meta name="twitter:card" content="summary_large_image">
         <?php endif; ?>
         <meta property="og:image" content="<?php echo isset($og_image)?$og_image:DEFAULT_IMAGE; ?>" />
         <meta name="twitter:image" content="<?php echo isset($og_image)?$og_image:DEFAULT_IMAGE; ?>">
-        <?php if(isset($page_title)): ?>
-        <meta property="og:image:alt" content="<?php echo $page_title; ?>" />
-        <meta name="twitter:image:alt" content="<?php echo $page_title; ?>">
-        <?php endif; ?>
         <?php if(isset($meta_description)): ?>
         <meta name="description" content="<?php echo $meta_description; ?>">
         <meta property="og:description" content="<?php echo $meta_description; ?>" />

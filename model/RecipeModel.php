@@ -229,7 +229,7 @@ class RecipeModel extends Model
                             'name'     => 'Step ' . $itemListElementCount,
                             'position' => $itemListElementCount,
                             'text'     => $exploded_content_part,
-                            'url'   => Core::url('recipe/' . $recipe['slug']) . '#step-' . $recipeInstructionsCount,
+                            'url'   => Core::url('recipe/' . $recipe['slug']) . '#step-' . $itemListElementCount,
                         ];
                     }
                 }

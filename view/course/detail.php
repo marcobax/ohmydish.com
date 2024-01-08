@@ -44,7 +44,9 @@ $section = match ($category['type']) {
     </div>
 </div>
 <div class="container">
-    <?php require(ROOT . '/view/course/_filters.php'); ?>
+    <?php if(isset($max_rating)): ?>
+        <?php require(ROOT . '/view/course/_filters.php'); ?>
+    <?php endif; ?>
     <?php if(isset($recipes) && is_array($recipes) && count($recipes)): ?>
         <?php require(ROOT . '/view/main/_pagination.php'); ?>
             <?php foreach($recipes as $recipe): ?>
