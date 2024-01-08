@@ -195,7 +195,7 @@ class recipeController extends Controller
             'dutch_url'                   => $recipe['dutch_url'],
             'preload_image'               => TemplateHelper::getFeaturedImage($recipe),
             'pageId'                      => 'recipe-' . $recipe['id'],
-            'disqusEnabled'               => true,
+            'disqusEnabled'               => false,
         ]);
 
         $this->render('detail');
