@@ -76,10 +76,35 @@
         <?php endif; ?>
         <meta property="og:image" content="<?php echo isset($og_image)?$og_image:DEFAULT_IMAGE; ?>" />
         <meta name="twitter:image" content="<?php echo isset($og_image)?$og_image:DEFAULT_IMAGE; ?>">
-        <?php if(isset($meta_description)): ?>
-        <meta name="description" content="<?php echo $meta_description; ?>">
-        <meta property="og:description" content="<?php echo $meta_description; ?>" />
-        <meta name="twitter:description" content="<?php echo $meta_description; ?>">
+        <?php if (isset($meta_description)) : ?>
+            <?php
+            $twitterDescription = $meta_description;
+            $facebookDescription = $meta_description;
+            $metaDescription = $meta_description;
+            /**
+             * Twitter card description should be 125 characters or less.
+             */
+            if (strlen($twitterDescription) > 125) {
+                $twitterDescription = substr($twitterDescription, 0, 122) . '...';
+            }
+
+            /**
+             * Facebook descriptions should be 65 characters or less.
+             */
+            if (strlen($facebookDescription) > 65) {
+                $facebookDescription = substr($facebookDescription, 0, 62) . '...';
+            }
+
+            /**
+             * Meta descriptions should be between 71 and 153 characters.
+             */
+            if (strlen($metaDescription) > 153) {
+                $metaDescription = substr($metaDescription, 0, 150) . '...';
+            }
+            ?>
+            <meta name="description" content="<?php echo $metaDescription; ?>">
+            <meta property="og:description" content="<?php echo $facebookDescription ?>" />
+            <meta name="twitter:description" content="<?php echo $twitterDescription; ?>">
         <?php endif; ?>
         <meta name="author" content="Ohmydish">
         <link rel="icon" href="<?php echo Core::asset('favicon.ico'); ?>">
